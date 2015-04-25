@@ -133,3 +133,10 @@
 ;;
 ;; DIAGNOSTICO
 ;;
+(defrule diag
+  ?dd <- (dd ?s)
+  ?hip <- (hipotesis ?t)
+  (test (eq ?s ?t))
+  =>
+  (printout t "Vamos a mandarte pruebas para " ?t crlf)
+)
