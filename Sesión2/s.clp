@@ -5,6 +5,10 @@
   (slot duracion)
 )
 
+(deftemplate epidemia
+  (slot nombre)
+)
+
 (deffunction ask-question (?qBEG ?qMID ?qEND $?allowed-values)
 
 	(printout t ?qBEG crlf crlf)
@@ -44,101 +48,128 @@
   (watch facts)
 )
 
+(defrule user-quits
+  (salir)
+=>
+  (printout t "You have QUIT the program." crlf)
+  (halt)
+)
+
 ;;
 ;; HIPOTESIS
 ;;
 
-(defrule hip-gripe
+(defrule hip-inicial
   ?ml <- (modulo-hipotesis)
-  (relacion (sintoma dolor))
-  (relacion (sintoma mal))
+  ?x <- (relacion (sintoma ?s))
   =>
-  (assert (hipotesis GRIPE))
+  (if (or (eq ?s fiebre) (eq ?s mal))
+    then
+      (assert (hipotesis GRIPE))
+    else
+      (assert (quit))
+  )
   (retract ?ml)
   (assert (modulo-dd))
-  (printout t "rule-hipotesis" crlf)
-)
-
-(defrule hip-gripe2
-  ?ml <- (modulo-hipotesis)
-  ?dd <- (dd MENINGITIS)
-  (relacion (sintoma dolor))
-  (relacion (sintoma mal))
-  (relacion (sintoma rigidez) (presente no))
-  (relacion (sintoma nuca) (presente no))
-  =>
-  (assert (hipotesis GRIPE))
-  (retract ?ml)
-  (retract ?dd)
-  (assert (modulo-dd))
-  (printout t "rule-hipotesis2" crlf)
 )
 
 ;;
 ;; Diagnóstico diferencial
 ;;
 
-(defrule dd-meningitis
+(defrule dd
   ?ml <- (modulo-dd)
-  (hipotesis GRIPE)
-  (not (relacion (sintoma rigidez)))
-  (not (relacion (sintoma nuca)))
+  ?hip <- (hipotesis ?enf)
+  ?x <- (relacion (sintoma ?x1))
+  ?y <- (relacion (sintoma ?y1))
   =>
   (assert (dd MENINGITIS))
   (retract ?ml)
   (assert (modulo-pregunta))
-  (printout t "rule-dd-meningitis" crlf)
 )
 
-(defrule dd-meningitis2
-  ?ml <- (modulo-dd)
-  (relacion (sintoma rigidez) (presente si))
-  (not (relacion (sintoma nuca)))
-  =>
-  (retract ?ml)
-  (assert (dd MENINGITIS))
-  (assert (modulo-pregunta))
-  (printout t "dd-meningitis2" crlf)
-)
 
 ;;
 ;; Preguntamos para descartar o afirmar hipotesis
 ;;
 ;; Aqui solo se pregunta y se aserta la respuesta, y volvemos al modulo de hipotesis, se actualiza la hipotesis en el mod de hipotesis. De hip a dd, luego a pregunta, y al final diagnostico.
 
-(defrule preguntas
+(defrule pregunta-Meningitis
   ?ml <- (modulo-pregunta)
-  (hipotesis GRIPE)
-  (dd MENINGITIS)
+  ?hip <- (hipotesis ?enf)
+  ?dd <- (dd MENINGITIS)
   =>
   (bind ?q (ask-question
-    "¿Tienes rigidez en el cuello?"
+    "¿Tienes rigidez en el cuello o dolor en la nuca?"
     "si/no"
     "si/no"
     si no))
+
     (assert (relacion (sintoma rigidez) (presente ?q)))
-        ; Vamos a hip, dispara gripe, dd, meningitis, pregunta otra vez por molestias nuca, meningitis, y sale.
-        ; EN hip, si no tiene dolor nuca ni rigidez, descaratar menigits
-    (assert (modulo-hipotesis))
+
+    (if (eq ?q si)
+      then
+        (retract ?hip)
+        (assert (hipotesis MENINGITIS))
+      else
+        (retract ?dd)
+        (assert (dd DENGE))
+    )
     (retract ?ml)
+    (assert (modulo-diag))
+    ;(assert (modulo-hipotesis))
 )
 
-(defrule preguntas2
+(defrule pregunta-Dengue
   ?ml <- (modulo-pregunta)
-  ?h <- (hipotesis GRIPE)
-  (dd MENINGITIS)
-  (relacion (sintoma rigidez) (presente si))
-  =>
+	?dd <- (dd DENGE)
+	?hip <- (hipotesis ?enf)
+  ?epi <- (epidemia (nombre DENGE))
+=>
   (bind ?q (ask-question
-    "¿Tienes molestias en la nuca?"
+    "¿Tienes ronchas?"
     "si/no"
     "si/no"
     si no))
 
-    (assert (relacion (sintoma nuca) (presente ?q)))
-    (retract ?h)
-    (assert (modulo-hipotesis))
-    (retract ?ml)
+  (if ( eq ?q si)
+    then
+      (retract ?hip)
+      (assert ( hipotesis DENGE ))
+    else
+      (if ?epi
+        then
+          (retract ?hip)
+        	(assert (hipotesis DENGE ))
+        else
+          (retract ?dd)
+        	(assert (dd N1H1))
+      )
+  )
+  (retract ?ml)
+  (assert (modulo-diag))
+)
+
+(defrule N1H1
+  ?ml <- (modulo-pregunta)
+	?dd <- (dd N1H1)
+	?hip <- (hipotesis ?enfermedad)
+=>
+  (bind ?q (ask-question
+    "¿Llevas más de una semana con dolor de cabeza y fiebre?"
+    "si/no"
+    "si/no"
+    si no))
+  (if (eq ?q si)
+    then
+      (retract ?hip)
+      (assert (hipotesis H1N1))
+    else
+      (retract ?dd)
+      (assert(dd GRIPE))
+  )
+  (retract ?ml)
+  (assert (modulo-diag))
 )
 
 
@@ -147,6 +178,7 @@
 ;;
 
 (defrule diag
+  ?ml <- (modulo-diag)
   ?dd <- (dd ?s)
   ?hip <- (hipotesis ?t)
   (test (eq ?s ?t))
