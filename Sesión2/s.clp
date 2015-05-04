@@ -1,5 +1,6 @@
 (deftemplate relacion
   (slot sintoma)
+  (slot presente (default no))
   (slot intensidad)
   (slot duracion)
 )
@@ -35,7 +36,7 @@
     fiebre dolor tos mal p))
   (if (neq ?r p)
 		then (assert (initial-fact))
-         (assert (relacion (sintoma ?r)))
+         (assert (relacion (sintoma ?r) (presente si)))
   else
     (assert (modulo-hipotesis))
     (retract ?x)
@@ -58,14 +59,30 @@
   (printout t "rule-hipotesis" crlf)
 )
 
+(defrule hip-gripe2
+  ?ml <- (modulo-hipotesis)
+  ?dd <- (dd MENINGITIS)
+  (relacion (sintoma dolor))
+  (relacion (sintoma mal))
+  (relacion (sintoma rigidez) (presente no))
+  (relacion (sintoma nuca) (presente no))
+  =>
+  (assert (hipotesis GRIPE))
+  (retract ?ml)
+  (retract ?dd)
+  (assert (modulo-dd))
+  (printout t "rule-hipotesis2" crlf)
+)
+
 ;;
 ;; Diagnóstico diferencial
 ;;
 
 (defrule dd-meningitis
   ?ml <- (modulo-dd)
-  (not (enfermedad MENINGITIS))
+  (hipotesis GRIPE)
   (not (relacion (sintoma rigidez)))
+  (not (relacion (sintoma nuca)))
   =>
   (assert (dd MENINGITIS))
   (retract ?ml)
@@ -75,8 +92,8 @@
 
 (defrule dd-meningitis2
   ?ml <- (modulo-dd)
-  (not (enfermedad MENINGITIS))
-  (relacion (sintoma rigidez))
+  (relacion (sintoma rigidez) (presente si))
+  (not (relacion (sintoma nuca)))
   =>
   (retract ?ml)
   (assert (dd MENINGITIS))
@@ -99,9 +116,7 @@
     "si/no"
     "si/no"
     si no))
-    (if (eq ?q si)
-      then (assert (relacion (sintoma rigidez))))
-        ;(retract ?d)
+    (assert (relacion (sintoma rigidez) (presente ?q)))
         ; Vamos a hip, dispara gripe, dd, meningitis, pregunta otra vez por molestias nuca, meningitis, y sale.
         ; EN hip, si no tiene dolor nuca ni rigidez, descaratar menigits
     (assert (modulo-hipotesis))
@@ -112,27 +127,25 @@
   ?ml <- (modulo-pregunta)
   ?h <- (hipotesis GRIPE)
   (dd MENINGITIS)
-  (relacion (sintoma rigidez))
+  (relacion (sintoma rigidez) (presente si))
   =>
   (bind ?q (ask-question
     "¿Tienes molestias en la nuca?"
     "si/no"
     "si/no"
     si no))
-    (if (eq ?q si)
-      then
-        (assert (relacion (sintoma nuca))))
-        (assert (enfermedad MENINGITIS))
-        (assert (hipotesis MENINGITIS))
+
+    (assert (relacion (sintoma nuca) (presente ?q)))
+    (retract ?h)
     (assert (modulo-hipotesis))
     (retract ?ml)
-    (retract ?h)
 )
 
 
 ;;
 ;; DIAGNOSTICO
 ;;
+
 (defrule diag
   ?dd <- (dd ?s)
   ?hip <- (hipotesis ?t)

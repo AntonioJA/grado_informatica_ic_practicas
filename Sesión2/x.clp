@@ -4,10 +4,6 @@
   (slot duracion)
 )
 
-(deftemplate hip
-  (slot nombre)
-)
-
 ;;; This function is used for every question made to the user.
 ;;; The question that is printed to the user is broken into three arguments (?qBEG ?qMID ?qEND) for flexibility, as we may need to include a printable in the middle.
 ;;; The argument $?allowed-values is a list that holds the allowed values that the program accepts.
@@ -90,22 +86,15 @@
 ;;
 
 (defrule hip-meningitis
+  (hipotesis)
   (relacion (sintoma mal))
   =>
-  (bind ?q (ask-question
-    "¿Tienes rigidez en el cuello y molestias en la nuca?"
-    "si/no"
-    "si/no"
-    si no))
-  (if (eq ?q si)
-    then
-      (assert (relacion (sintoma rigidez)))
-      (assert (hip (d meningitis) (p ?q)))
-  )
+  (assert (hip (d meningitis) (p si)))
   (facts)
 )
 
 (defrule hip-gripe
+  (hipotesis)
   (relacion (sintoma tos))
   (relacion (sintoma mal))
   (relacion (sintoma dolor))
@@ -115,6 +104,7 @@
 )
 
 (defrule hip-denge
+  (hipotesis)
   (relacion (sintoma fiebre) (intensidad alta))
   =>
   (bind ?q (ask-question
@@ -127,6 +117,7 @@
 )
 
 (defrule hip-h1n1
+  (hipotesis)
   (hip (d gripe) (p si))
   (relacion (sintoma fiebre) (duracion mas))
   =>
@@ -145,8 +136,15 @@
   (facts)
 )
 
+
 ;;
-;; DIAGNÓSTICO
+;; Diagnóstico Diferencial
+;;
+
+
+
+;;
+;; RESULTADO
 ;;
 (defrule diag-denge
   (hip (d ronchas) (p si))
@@ -169,3 +167,16 @@
   =>
   (printout t "Pruebas H1N1" crlf)
 )
+
+
+
+;  (bind ?q (ask-question
+;    "¿Tienes rigidez en el cuello y molestias en la nuca?"
+;    "si/no"
+;    "si/no"
+;    si no))
+;  (if (eq ?q si)
+;    then
+;      (assert (relacion (sintoma rigidez)))
+;      (assert (hip (d meningitis) (p ?q)))
+;  )
