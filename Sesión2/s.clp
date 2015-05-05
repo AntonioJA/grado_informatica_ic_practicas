@@ -9,6 +9,10 @@
   (slot nombre)
 )
 
+(deffacts epi
+  (epidemia (nombre DENGE))
+)
+
 (deffunction ask-question (?qBEG ?qMID ?qEND $?allowed-values)
 
 	(printout t ?qBEG crlf crlf)
@@ -105,19 +109,18 @@
     "si/no"
     si no))
 
-    (assert (relacion (sintoma rigidez) (presente ?q)))
-
     (if (eq ?q si)
       then
         (retract ?hip)
         (assert (hipotesis MENINGITIS))
+        (assert (relacion (sintoma rigidez) (presente si)))
       else
         (retract ?dd)
         (assert (dd DENGE))
+        (assert (relacion (sintoma rigidez) (presente no)))
     )
     (retract ?ml)
     (assert (modulo-diag))
-    ;(assert (modulo-hipotesis))
 )
 
 (defrule pregunta-Dengue
@@ -184,4 +187,13 @@
   (test (eq ?s ?t))
   =>
   (printout t "Vamos a mandarte pruebas para " ?t crlf)
+)
+
+(defrule diag-no
+  ?ml <- (modulo-diag)
+  ?dd <- (dd ?s)
+  ?hip <- (hipotesis ?t)
+  (test (neq ?s ?t))
+  =>
+  (assert (modulo-hipotesis))
 )
