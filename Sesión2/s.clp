@@ -5,14 +5,6 @@
   (slot duracion)
 )
 
-(deftemplate epidemia
-  (slot nombre)
-)
-
-(deffacts epi
-  (epidemia (nombre DENGE))
-)
-
 (deffunction ask-question (?qBEG ?qMID ?qEND $?allowed-values)
 
 	(printout t ?qBEG crlf crlf)
@@ -39,9 +31,9 @@
   (retract ?x)
 	(bind ?r (ask-question
     "¿Cuales son tus síntomas?"
-    "Fiebre, Dolor de cabeza, tos, mal estar general"
-    "fiebre, dolor, tos, mal, p"
-    fiebre dolor tos mal p))
+    "Fiebre, Dolor de cabeza, mal estar general"
+    "fiebre, dolor, mal, p"
+    fiebre dolor mal p))
   (if (neq ?r p)
 		then (assert (initial-fact))
          (assert (relacion (sintoma ?r) (presente si)))
@@ -70,6 +62,7 @@
   (if (or (eq ?s fiebre) (eq ?s mal))
     then
       (assert (hipotesis GRIPE))
+      (assert (dd MENINGITIS))
     else
       (assert (quit))
   )
@@ -84,10 +77,26 @@
 (defrule dd
   ?ml <- (modulo-dd)
   ?hip <- (hipotesis ?enf)
+  ?dd <- (dd ?ddn)
   ?x <- (relacion (sintoma ?x1))
   ?y <- (relacion (sintoma ?y1))
   =>
-  (assert (dd MENINGITIS))
+  (if (eq ?ddn DENGE )
+    then
+      (retract ?dd)
+      (assert (dd DENGE))
+  )
+  (if (eq ?ddn H1N1)
+    then
+      (retract ?dd)
+      (assert (dd H1N1))
+  )
+  (if (eq ?ddn MENINGITIS)
+    then
+      (retract ?dd)
+      (assert (dd MENINGITIS))
+  )
+
   (retract ?ml)
   (assert (modulo-pregunta))
 )
@@ -127,35 +136,43 @@
   ?ml <- (modulo-pregunta)
 	?dd <- (dd DENGE)
 	?hip <- (hipotesis ?enf)
-  ?epi <- (epidemia (nombre DENGE))
 =>
+
   (bind ?q (ask-question
-    "¿Tienes ronchas?"
+    "¿Hay epidemia de DENGE?"
     "si/no"
     "si/no"
     si no))
 
-  (if ( eq ?q si)
+  (assert (epidemia ?q))
+
+  (if (eq ?q si)
     then
+      (assert (hipotesis DENGE))
       (retract ?hip)
-      (assert ( hipotesis DENGE ))
     else
-      (if ?epi
+      (bind ?q (ask-question
+        "¿Tienes ronchas?"
+        "si/no"
+        "si/no"
+        si no))
+
+      (if ( eq ?q si)
         then
           (retract ?hip)
-        	(assert (hipotesis DENGE ))
+          (assert ( hipotesis DENGE ))
         else
-          (retract ?dd)
-        	(assert (dd N1H1))
+            (retract ?dd)
+            (assert (dd H1N1))
       )
   )
   (retract ?ml)
   (assert (modulo-diag))
 )
 
-(defrule N1H1
+(defrule H1N1
   ?ml <- (modulo-pregunta)
-	?dd <- (dd N1H1)
+	?dd <- (dd H1N1)
 	?hip <- (hipotesis ?enfermedad)
 =>
   (bind ?q (ask-question
@@ -195,5 +212,5 @@
   ?hip <- (hipotesis ?t)
   (test (neq ?s ?t))
   =>
-  (assert (modulo-hipotesis))
+  (assert (modulo-dd))
 )
