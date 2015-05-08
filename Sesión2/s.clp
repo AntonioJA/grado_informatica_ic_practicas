@@ -1,9 +1,73 @@
-(deftemplate relacion
+;reglas
+
+;;; Cargar al princiop los hechos con pares sintomas y enfermedad
+
+;;; moid hip
+
+;- si solo sintaomas gripales, gripe HIP
+;- Si sintomas gripales y dolor nuca o rig hip meningitis
+;- si sintomas gripales y ronnchas hip denge
+;- Sintomas gripales y persintencia o fiebre alta n1h1
+
+;;; mod dd
+
+;peina en enfermedades que podrian confundirse, depende de la hipotesis
+
+;- si no descartado meningitis, dd meningitis
+;- Si hip N1H1 dd denge
+;- si hip denge dd N1H1
+;- si hip meningits directo meningitis
+
+
+;esquema]
+
+; dice sintoms, hago hip, pienso con cual enfermedad mas puede casar, preguntamos; para descartar con que enfermedades puede coincir..
+
+; Dolor cabe, mal estar, hip gripe, dd meningitis, preguntamos por sintoma de dd,; en este caso rigidez nuca. Si le duele asertamos sintoma. Descartamos y; volvemos a hipotesis.
+
+; Inferimos en dd y en hip.
+
+; Faltan las reglas de que preguntar.
+
+; Reglas para descartar enfermedades. en modulo pregunta.
+
+; Descartar
+
+; - Si no dolor nuca ni rigidez, desc meningitis.
+; - Si no persistencia en sintomas ni fieb alta descar N1H1
+; - Si no roncha ni epidemia desc denge.
+; - Si ronchas y no epidemia, no se descarta denge
+
+; No nos ha dicho, por ejemplo, que si desc una enfermedad, en la regla que toma; como hip no la aplica, en el antecedente tientie que poner no descartado.
+
+; Lo mismo para el dd
+
+; No puede coge mismo hip y dd
+
+
+(deftemplate sin-enf
   (slot sintoma)
-  (slot presente (default no))
   (slot intensidad)
   (slot duracion)
 )
+
+(deffacts HECHOS
+  (noDescartado GRIPE)
+  (noDescartado MENINGITIS)
+  (noDescartado N1H1)
+  (noDescartado DENGUE)
+
+  (sin-enf (sintoma CUELLO))
+  (sin-enf (sintoma TOS))
+  (sin-enf (sintoma RONCHAS))
+  (sin-enf  (sintoma FIEBRE))
+  (sin-enf  (sintoma MAL))
+  (sin-enf  (sintoma DOLOR))
+
+)
+
+
+
 
 (deffunction ask-question (?qBEG ?qMID ?qEND $?allowed-values)
 
@@ -36,7 +100,7 @@
     fiebre dolor mal p))
   (if (neq ?r p)
 		then (assert (initial-fact))
-         (assert (relacion (sintoma ?r) (presente si)))
+         (assert (sin-enf (sintoma ?r)))
   else
     (assert (modulo-hipotesis))
     (retract ?x)
@@ -44,73 +108,100 @@
   (watch facts)
 )
 
-(defrule user-quits
-  (salir)
-=>
-  (printout t "You have QUIT the program." crlf)
-  (halt)
-)
-
 ;;
 ;; HIPOTESIS
 ;;
 
-(defrule hip-inicial
+(defrule hip1
   ?ml <- (modulo-hipotesis)
-  ?x <- (relacion (sintoma ?s))
-  =>
-  (if (or (eq ?s fiebre) (eq ?s mal))
-    then
-      (assert (hipotesis GRIPE))
-      (assert (dd MENINGITIS))
-    else
-      (assert (quit))
-  )
-  (retract ?ml)
+  (sin-enf (sintoma FIEBRE))
+  (noDescartado GRIPE)
+=>
+  (assert (hipotesis GRIPE))
   (assert (modulo-dd))
+  (retract ?ml)
 )
+
+(defrule hip2
+  ?ml <- (modulo-hipotesis)
+  (noDescartado MENINGITIS)
+  (sin-enf (sintoma CUELLO))
+  =>
+  (assert (hipotesis MENINGITIS))
+  (assert (modulo-dd))
+  (retract ?ml)
+)
+
+(defrule hip3
+  ?ml <- (modulo-hipotesis)
+  (sin-enf (sintoma RONCHAS))
+  (noDescartado DENGUE)
+  =>
+  (assert (hipotesis DENGUE))
+  (assert (modulo-dd))
+  (retract ?ml)
+)
+
+(defrule hip4
+  ?ml <- (modulo-hipotesis)
+  (sin-enf (sintoma ?x) (duracion SEMANAS))
+  (noDescartado N1H1)
+  =>
+  (assert (hipotesis N1H1))
+  (assert (modulo-dd))
+  (retract ?ml)
+)
+
 
 ;;
 ;; Diagnóstico diferencial
 ;;
 
-(defrule dd
+(defrule dd1
   ?ml <- (modulo-dd)
-  ?hip <- (hipotesis ?enf)
-  ?dd <- (dd ?ddn)
-  ?x <- (relacion (sintoma ?x1))
-  ?y <- (relacion (sintoma ?y1))
-  =>
-  (if (eq ?ddn DENGE )
-    then
-      (retract ?dd)
-      (assert (dd DENGE))
-  )
-  (if (eq ?ddn H1N1)
-    then
-      (retract ?dd)
-      (assert (dd H1N1))
-  )
-  (if (eq ?ddn MENINGITIS)
-    then
-      (retract ?dd)
-      (assert (dd MENINGITIS))
-  )
-
-  (retract ?ml)
+  (noDescartado MENINGITIS)
+=>
+  (assert (dd MENINGITIS))
   (assert (modulo-pregunta))
+  (retract ?ml)
 )
 
+(defrule dd2
+  ?ml <- (modulo-dd)
+  (hipotesis N1H1)
+=>
+  (assert (dd DENGUE))
+  (assert (modulo-pregunta))
+  (retract ?ml)
+)
+
+(defrule dd3
+  ?ml <- (modulo-dd)
+  (hipotesis DENGUE)
+=>
+  (assert (dd N1H1))
+  (assert (modulo-pregunta))
+  (retract ?ml)
+)
+
+(defrule dd4
+  ?ml <- (modulo-dd)
+  (hipotesis MENINGITIS)
+=>
+  (assert (dd MENINGITIS))
+  (assert (modulo-pregunta))
+  (retract ?ml)
+)
 
 ;;
-;; Preguntamos para descartar o afirmar hipotesis
+;; MOD Preguntas
 ;;
-;; Aqui solo se pregunta y se aserta la respuesta, y volvemos al modulo de hipotesis, se actualiza la hipotesis en el mod de hipotesis. De hip a dd, luego a pregunta, y al final diagnostico.
 
-(defrule pregunta-Meningitis
+(defrule pregunta1
   ?ml <- (modulo-pregunta)
-  ?hip <- (hipotesis ?enf)
   ?dd <- (dd MENINGITIS)
+  ?e <- (noDescartado GRIPE)
+  ?e1 <- (noDescartado MENINGITIS)
   =>
   (bind ?q (ask-question
     "¿Tienes rigidez en el cuello o dolor en la nuca?"
@@ -120,97 +211,55 @@
 
     (if (eq ?q si)
       then
-        (retract ?hip)
-        (assert (hipotesis MENINGITIS))
-        (assert (relacion (sintoma rigidez) (presente si)))
+        (retract ?e)
       else
-        (retract ?dd)
-        (assert (dd DENGE))
-        (assert (relacion (sintoma rigidez) (presente no)))
+        (retract ?e1)
+    )
+
+    (retract ?ml)
+    (assert (modulo-hipotesis))
+)
+
+(defrule pregunta2
+  ?ml <- (modulo-pregunta)
+  ?dd <- (dd DENGUE)
+  ?e <- (noDescartado DENGUE)
+  =>
+  (bind ?q (ask-question
+    "¿Tienes ronchas?"
+    "si/no"
+    "si/no"
+    si no))
+
+    (if (eq ?q no)
+      then
+        (retract ?e)
     )
     (retract ?ml)
-    (assert (modulo-diag))
+    (assert (modulo-hipotesis))
 )
 
-(defrule pregunta-Dengue
+(defrule pregunta3
   ?ml <- (modulo-pregunta)
-	?dd <- (dd DENGE)
-	?hip <- (hipotesis ?enf)
-=>
-
+  ?dd <- (dd N1H1)
+  ?e <- (noDescartado GRIPE)
+  ?e1 <-(noDescartado N1H1)
+  ?si <- (sin-enf (sintoma ?x))
+  =>
   (bind ?q (ask-question
-    "¿Hay epidemia de DENGE?"
+    "¿Llevas más de una semana con los sintomas?"
     "si/no"
     "si/no"
     si no))
 
-  (assert (epidemia ?q))
+    (if (eq ?q si)
+      then
+        (retract ?e)
+        (assert (sin-enf (sintoma ?x) (duracion SEMANAS)))
+      else
+        (retract ?e1)
+    )
 
-  (if (eq ?q si)
-    then
-      (assert (hipotesis DENGE))
-      (retract ?hip)
-    else
-      (bind ?q (ask-question
-        "¿Tienes ronchas?"
-        "si/no"
-        "si/no"
-        si no))
-
-      (if ( eq ?q si)
-        then
-          (retract ?hip)
-          (assert ( hipotesis DENGE ))
-        else
-            (retract ?dd)
-            (assert (dd H1N1))
-      )
-  )
-  (retract ?ml)
-  (assert (modulo-diag))
-)
-
-(defrule H1N1
-  ?ml <- (modulo-pregunta)
-	?dd <- (dd H1N1)
-	?hip <- (hipotesis ?enfermedad)
-=>
-  (bind ?q (ask-question
-    "¿Llevas más de una semana con dolor de cabeza y fiebre?"
-    "si/no"
-    "si/no"
-    si no))
-  (if (eq ?q si)
-    then
-      (retract ?hip)
-      (assert (hipotesis H1N1))
-    else
-      (retract ?dd)
-      (assert(dd GRIPE))
-  )
-  (retract ?ml)
-  (assert (modulo-diag))
-)
-
-
-;;
-;; DIAGNOSTICO
-;;
-
-(defrule diag
-  ?ml <- (modulo-diag)
-  ?dd <- (dd ?s)
-  ?hip <- (hipotesis ?t)
-  (test (eq ?s ?t))
-  =>
-  (printout t "Vamos a mandarte pruebas para " ?t crlf)
-)
-
-(defrule diag-no
-  ?ml <- (modulo-diag)
-  ?dd <- (dd ?s)
-  ?hip <- (hipotesis ?t)
-  (test (neq ?s ?t))
-  =>
-  (assert (modulo-dd))
+    (retract ?ml)
+    (assert (modulo-hipotesis))
 )
