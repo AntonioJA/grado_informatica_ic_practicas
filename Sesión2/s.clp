@@ -57,12 +57,12 @@
   (noDescartado N1H1)
   (noDescartado DENGUE)
 
-  (sin-enf (sintoma CUELLO))
-  (sin-enf (sintoma TOS))
-  (sin-enf (sintoma RONCHAS))
-  (sin-enf  (sintoma FIEBRE))
-  (sin-enf  (sintoma MAL))
-  (sin-enf  (sintoma DOLOR))
+;  (sin-enf (sintoma cuello))
+;  (sin-enf (sintoma tos))
+;  (sin-enf (sintoma ronchas))
+;  (sin-enf  (sintoma fiebre))
+;  (sin-enf  (sintoma mal))
+;  (sin-enf  (sintoma dolor))
 
 )
 
@@ -112,10 +112,53 @@
 ;; HIPOTESIS
 ;;
 
+(defrule diag-gripe
+  ?ml <- (modulo-hipotesis)
+  (noDescartado GRIPE)
+  (not (noDescartado MENINGITIS))
+  (not (noDescartado N1H1))
+  (not (noDescartado DENGUE))
+=>
+  (printout t "Vamos a mandarte pruebas para GRIPE" crlf)
+  (halt)
+)
+
+(defrule diag-meningi
+  ?ml <- (modulo-hipotesis)
+  (noDescartado MENINGITIS)
+  (hipotesis MENINGITIS)
+=>
+  (printout t "Vamos a mandarte pruebas para MENINGITIS" crlf)
+  (halt)
+)
+
+(defrule diag-dengue
+  ?ml <- (modulo-hipotesis)
+  (not (noDescartado GRIPE))
+  (not (noDescartado MENINGITIS))
+  (not (noDescartado N1H1))
+  (noDescartado DENGUE)
+=>
+  (printout t "Vamos a mandarte pruebas para DENGUE" crlf)
+  (halt)
+)
+
+(defrule diag-n1h1
+  ?ml <- (modulo-hipotesis)
+  (not (noDescartado GRIPE))
+  (not (noDescartado MENINGITIS))
+  (not (noDescartado DENGUE))
+  (noDescartado N1H1)
+=>
+  (printout t "Vamos a mandarte pruebas para N1H1" crlf)
+  (halt)
+)
+
 (defrule hip1
   ?ml <- (modulo-hipotesis)
-  (sin-enf (sintoma FIEBRE))
+  (sin-enf (sintoma fiebre))
   (noDescartado GRIPE)
+  (not (sin-enf (sintoma ronchas)))
 =>
   (assert (hipotesis GRIPE))
   (assert (modulo-dd))
@@ -125,7 +168,7 @@
 (defrule hip2
   ?ml <- (modulo-hipotesis)
   (noDescartado MENINGITIS)
-  (sin-enf (sintoma CUELLO))
+  (sin-enf (sintoma cuello))
   =>
   (assert (hipotesis MENINGITIS))
   (assert (modulo-dd))
@@ -134,7 +177,7 @@
 
 (defrule hip3
   ?ml <- (modulo-hipotesis)
-  (sin-enf (sintoma RONCHAS))
+  (sin-enf (sintoma ronchas))
   (noDescartado DENGUE)
   =>
   (assert (hipotesis DENGUE))
@@ -193,6 +236,20 @@
   (retract ?ml)
 )
 
+(defrule dd5
+  ?ml <- (modulo-dd)
+  (hipotesis GRIPE)
+  (not (noDescartado MENINGITIS))
+  (noDescartado DENGUE)
+=>
+  (assert (dd DENGUE))
+  (assert (modulo-pregunta))
+  (retract ?ml)
+)
+
+
+
+
 ;;
 ;; MOD Preguntas
 ;;
@@ -215,7 +272,7 @@
       else
         (retract ?e1)
     )
-
+    (retract ?dd)
     (retract ?ml)
     (assert (modulo-hipotesis))
 )
@@ -223,6 +280,7 @@
 (defrule pregunta2
   ?ml <- (modulo-pregunta)
   ?dd <- (dd DENGUE)
+  ?hip <- (hipotesis ?x)
   ?e <- (noDescartado DENGUE)
   =>
   (bind ?q (ask-question
@@ -234,8 +292,12 @@
     (if (eq ?q no)
       then
         (retract ?e)
+      else
+        (assert (sin-enf (sintoma ronchas)))
+        (retract ?hip)
     )
     (retract ?ml)
+    (retract ?dd)
     (assert (modulo-hipotesis))
 )
 
@@ -243,8 +305,10 @@
   ?ml <- (modulo-pregunta)
   ?dd <- (dd N1H1)
   ?e <- (noDescartado GRIPE)
-  ?e1 <-(noDescartado N1H1)
+  ?e1 <- (noDescartado N1H1)
+  ?e3 <- (noDescartado DENGUE)
   ?si <- (sin-enf (sintoma ?x))
+  ?hip <- (hipotesis ?x1)
   =>
   (bind ?q (ask-question
     "¿Llevas más de una semana con los sintomas?"
@@ -255,11 +319,13 @@
     (if (eq ?q si)
       then
         (retract ?e)
+        (retract ?e3)
         (assert (sin-enf (sintoma ?x) (duracion SEMANAS)))
+        (retract ?hip)
       else
         (retract ?e1)
     )
-
+    (retract ?dd)
     (retract ?ml)
     (assert (modulo-hipotesis))
 )
