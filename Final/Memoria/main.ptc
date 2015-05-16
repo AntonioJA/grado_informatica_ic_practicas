@@ -3,75 +3,59 @@
 \select@language {spanish}
 \ttl@starttoc {default@1}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {1}Text Chapter}{5}
+\contentsline {chapter}{\numberline {1}Esquema de razonamiento}{5}
 \ttl@stoptoc {default@1}
 \ttl@starttoc {default@2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {1.1}Paragraphs of Text}{5}
+\contentsline {section}{\numberline {1.1}Esquema de razonamiento}{5}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {1.2}Citation}{5}
+\contentsline {section}{\numberline {1.2}Reglas indicadas en mi función como experto}{5}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {1.3}Lists}{5}
+\contentsline {subsection}{\numberline {1.2.1}Numbered List}{5}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.3.1}Numbered List}{5}
+\contentsline {subsection}{\numberline {1.2.2}Bullet Points}{5}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.3.2}Bullet Points}{5}
+\contentsline {subsection}{\numberline {1.2.3}Descriptions and Definitions}{5}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.3.3}Descriptions and Definitions}{5}
-\defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {2}In-text Elements}{7}
+\contentsline {chapter}{\numberline {2}Procedimiento seguido}{7}
 \ttl@stoptoc {default@2}
 \ttl@starttoc {default@3}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.1}Theorems}{7}
+\contentsline {section}{\numberline {2.1}Sesiones con el experto}{7}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.1.1}Several equations}{7}
+\contentsline {section}{\numberline {2.2}Procedimiento de validación y verificación}{7}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.1.2}Single Line}{7}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.2}Definitions}{7}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.3}Notations}{7}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.4}Remarks}{8}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.5}Corollaries}{8}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.6}Propositions}{8}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.6.1}Several equations}{8}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.6.2}Single Line}{8}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.7}Examples}{8}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.7.1}Equation and Text}{8}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.7.2}Paragraph of Text}{9}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.8}Exercises}{9}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.9}Problems}{9}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.10}Vocabulary}{9}
-\defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {3}Presenting Information}{11}
+\contentsline {chapter}{\numberline {3}Descripción del sistema desarrollado}{9}
 \ttl@stoptoc {default@3}
 \ttl@starttoc {default@4}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.1}Table}{11}
+\contentsline {section}{\numberline {3.1}Variables de entrada}{9}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.2}Figure}{11}
+\contentsline {section}{\numberline {3.2}Variables de salida}{9}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.3}Conocimiento global}{9}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.4}Módulos desarrollados}{9}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.5}Estructura del esquema de razonamiento}{9}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.6}Lista de hechos usada durante ejecución}{9}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.7}Reglas de cada módulo}{9}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}Manual de uso}{11}
 \ttl@stoptoc {default@4}
 \ttl@starttoc {default@5}
+\ttl@stoptoc {default@5}
+\ttl@starttoc {default@6}
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\leavevmode {\color {ocre}Bibliography}}{13}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{Books}{13}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{Articles}{13}
-\ttl@stoptoc {default@5}
-\ttl@starttoc {default@6}
+\ttl@stoptoc {default@6}
+\ttl@starttoc {default@7}
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\leavevmode {\color {ocre}Index}}{15}
 \contentsfinish 
