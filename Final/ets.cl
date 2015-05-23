@@ -1,6 +1,13 @@
 ;; Expert system to inform users about STDs
 
-(deffacts Kwnoledge-Base
+;; Templates
+(deftemplate std
+    (slot std-name)
+    (slot std-symtom)
+)
+
+;; Facts
+(deffacts Kwnoledge
   (std
     (std-name uretritis) (std-symtom inflamacion) )
   (std
@@ -34,5 +41,26 @@
     (std-name infec-faringeas) (std-symtom inflamacion-ganglios-linf) )
 
   (std
-    (std-name balanitis) (std-symtom ) )
+    (std-name balanitis) (std-symtom candidas) )
+  (std
+    (std-name balanitis) (std-symtom prurito) )
+  (std
+    (std-name balanitis) (std-symtom ardor) )
+
+  (std
+    (std-name faringeas) (std-symtom dolor-garganta) )
+  (std
+    (std-name faringeas) (std-symtom inflamacion-ganglios-linf) )
+
+  (std
+    (std-name ulcera-genital) (std-symtom inflamacion-ganglios-ingles) )
+
+  ;; Need more info.
+  ;(std
+  ;  (std-name verruga-genital) (std-symtom ) )
+
+  (std
+    (std-name ectoparasitosis) (std-symtom macula-roja) )
+  (std
+    (std-name ectoparasitosis) (std-symtom liendres-ladillas) )
 )
