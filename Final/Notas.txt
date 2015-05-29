@@ -14,6 +14,7 @@
 ### Links útiles
 
 https://github.com/miaaaooow/cardiologist/blob/master/card.clp
+http://es.euroclinix.net/que-hacer-con-ets.html
 
 *URETRITIS ->
 	- inflamación de la uretra

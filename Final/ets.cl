@@ -65,7 +65,44 @@
     (std-name ectoparasitosis) (std-symtom liendres-ladillas) )
 )
 
+;;; Global Variables
+(defglobal ?*allowed-values* = (create$ 0 1 2 3))
+
+;; Function used to ask questions to the user
+;; @param ?qBEG: First part of the question
+;; @param $?qMID: List of possible user answers
+;; @return ?answer: Variable with the user input text
+(deffunction ask-question (?qBEG $?qMID)
+
+	(printout t ?qBEG crlf crlf)
+  (progn$ (?field $?qMID)
+    (printout t ?field-index ") " ?field "." crlf))
+  (printout t "Insert " ?*allowed-values* ": ")
+	(bind ?answer (read))
+	(while (not (member ?answer ?*allowed-values*)) do
+    (printout t ?qBEG crlf crlf)
+    (progn$ (?field $?qMID)
+      (printout t ?field-index ") " ?field "." crlf))
+    (printout t "Insert " ?*allowed-values* ": ")
+  	(bind ?answer (read))
+	)
+?answer)
+
+
 ;;;;;;;;;;;;;;;;;
 ;; Main Module ;;
 ;;;;;;;;;;;;;;;;;
 ;; The first thing we are going to do is ask the user who thinks he has.
+(defrule firstQuestion
+  ?x <- (initial-fact)
+	=>
+  (retract ?x)
+	(bind ?r (ask-question
+    "What happends to you?"
+    "I think I may have an STD"
+    "ADIOS"))
+  (watch facts)
+)
+
+;; Escribir en el menu varias posibles respuestas, en funcion de ellas, se ira preguntando sobre qué tipo de relación
+;; ha tenido, y se irá saltando a los distintos modulos,  (Creo que un módulo por enfermedad estaria bien)
