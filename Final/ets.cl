@@ -74,33 +74,19 @@
 ;; @return ?answer: Variable with the user input text
 (deffunction ask-question (?qBEG $?qMID)
 
-	(printout t ?qBEG crlf crlf)
+	(printout t crlf ?qBEG crlf crlf)
   (progn$ (?field $?qMID)
-    (printout t ?field-index ") " ?field "." crlf))
+    (printout t "    "?field-index ") " ?field "." crlf))
   (printout t "Insert " ?*allowed-values* ": ")
 	(bind ?answer (read))
 	(while (not (member ?answer ?*allowed-values*)) do
-    (printout t ?qBEG crlf crlf)
+    (printout t crlf ?qBEG crlf crlf)
     (progn$ (?field $?qMID)
-      (printout t ?field-index ") " ?field "." crlf))
+      (printout t "    "?field-index ") " ?field "." crlf))
     (printout t "Insert " ?*allowed-values* ": ")
   	(bind ?answer (read))
 	)
 ?answer)
-
-;; To Change from a module to another, follow this patter:
-(deffacts ControlInfo
-  (PhaseList DETECTION DIAGNOSTIC TIP)
-)
-
-(defrule ChangeModule
-  ;(exists (BuscarTerapia ?))
-  ?List <- (PhaseList ?Next $?Tail)
-  =>
-  (assert ?Next)
-  (retract ?Lista)
-  (assert (PhaseList $?Tail ?Next))
-)
 
 ;;;;;;;;;;;;;;;;;
 ;; Main Module ;;
@@ -113,9 +99,23 @@
 	(bind ?r (ask-question
     "What happends to you?"
     "I think I may have an STD"
-    "ADIOS"))
+    "I've been in a risk situation"
+    "Bye"))
+  (assert (response ?r))
   (watch facts)
 )
 
 ;; Escribir en el menu varias posibles respuestas, en funcion de ellas, se ira preguntando sobre qué tipo de relación
 ;; ha tenido, y se irá saltando a los distintos modulos,  (Creo que un módulo por enfermedad estaria bien)
+
+;;;;;;;;;;;;;;;;;;;;;;
+;; Detection Module ;;
+;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;
+;; Diagnostic Module ;;
+;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;
+;; Tip Module ;;
+;;;;;;;;;;;;;;;;
