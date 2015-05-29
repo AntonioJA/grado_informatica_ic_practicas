@@ -1,7 +1,7 @@
 ;; Expert system to inform users about STDs
 
 ;; Templates
-(deftemplate std
+(deftemplate std "Template representing a STD"
     (slot std-name)
     (slot std-symtom)
 )
@@ -64,3 +64,8 @@
   (std
     (std-name ectoparasitosis) (std-symtom liendres-ladillas) )
 )
+
+;;;;;;;;;;;;;;;;;
+;; Main Module ;;
+;;;;;;;;;;;;;;;;;
+;; The first thing we are going to do is ask the user who thinks he has.
