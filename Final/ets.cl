@@ -88,6 +88,19 @@
 	)
 ?answer)
 
+;; To Change from a module to another, follow this patter:
+(deffacts ControlInfo
+  (PhaseList DETECTION DIAGNOSTIC TIP)
+)
+
+(defrule ChangeModule
+  ;(exists (BuscarTerapia ?))
+  ?List <- (PhaseList ?Next $?Tail)
+  =>
+  (assert ?Next)
+  (retract ?Lista)
+  (assert (PhaseList $?Tail ?Next))
+)
 
 ;;;;;;;;;;;;;;;;;
 ;; Main Module ;;
