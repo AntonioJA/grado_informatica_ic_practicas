@@ -73,8 +73,18 @@ DESCARTARLAS ANTES FARINGITIS DE REPETICIÓN QUE NO EVOLUCIONAN FAVORABLEMENTE A
 	- Signo más frecuente presencia de liendres en la base del pelo
 
 * SÍFILIS
-	// para luego.
-
+	- Por contacto sexual
+	- Excepcionalmente por transfusión sanguínea
+	- Riesgo al contacto con infectada 10-60%
+	* S. precoz:
+			- Ulcera en el lugar de la inoculación (3 4 semanas)
+		* S. secundario
+			- a las 6 8 semanas aparición cancro
+			- Roseola sifilica: color rosa palido, en tronco y extremidades, mas comun y precoz, desaparece a las pocas semanas como maximo dos meses sin tratamiento.
+			- Sifilides papulosas: rojo oscuro, tronco y extremidaes, aunque mas en plantas y palmas.
+			- Condimlomas planos: a los 3-6 meses de la infeccion. planas rojo oscuro. En zonas humedas, area genital, perianla, ingles, axilas, zonas de pliegues.
+			- Alopecia sifilica: Si en cuero cabelludo, se manifiesta en forma de alopecia en placas.
+	* S. tardía
 
 # Diagnóstico de Laboratorio
 
