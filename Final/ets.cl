@@ -4,6 +4,7 @@
 (deftemplate std "Template representing a STD"
     (slot std-name)
     (slot std-symtom)
+    (slot std-symtom-where)
 )
 
 ;; Facts
@@ -63,6 +64,18 @@
     (std-name ectoparasitosis) (std-symtom macula-roja) )
   (std
     (std-name ectoparasitosis) (std-symtom liendres-ladillas) )
+
+  ;; Sífilis prematura
+  (std
+    (std-name sifilis) (std-symtom ulcera) )
+  (std
+    (std-name sifilis) (std-symtom roseola-rosa-palida-tronco) )
+  (std
+    (std-name sifilis) (std-symtom rojo-oscuro-platas) )
+  (std
+    (std-name sifilis) (std-symtom rojo-oscuro-zona-humeda) )
+  (std
+    (std-name sifilis) (std-symtom alopecia) )
 )
 
 ;;; Global Variables
