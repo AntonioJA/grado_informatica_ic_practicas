@@ -7,8 +7,6 @@
     (slot std-symtom-where)
 )
 
-
-
 ;; Facts
 (deffacts Kwnoledge
   (std
@@ -126,14 +124,6 @@
 
 ;; Escribir en el menu varias posibles respuestas, en funcion de ellas, se ira preguntando sobre qué tipo de relación
 ;; ha tenido, y se irá saltando a los distintos modulos,  (Creo que un módulo por enfermedad estaria bien)
-
-;;;;;;;;;;;;;;;;;;;;;;
-;; Detection Module ;;
-;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;
-;; Diagnostic Module ;;
-;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;
 ;; Tip Module ;;
