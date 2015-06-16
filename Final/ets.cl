@@ -84,7 +84,7 @@
 
 ;;; Global Variables
 (defglobal ?*allowed-values* = (create$ 1 2 3))
-(defglobal ?*question-11* = (create$ 1 2 3 4 5 6 7 8 9))
+(defglobal ?*question-11* = (create$ 1 2 3 4))
 (defglobal ?*question-12* = (create$ 1 2 3 4 5))
 
 ;; Function used to ask questions to the user
@@ -118,17 +118,15 @@
     (printout t "    "?field-index ") " ?field "." crlf))
   (printout t "Insert " ?*question-11* ": ")
 	(bind ?answer (read))
-	(while (neq ?answer 9) do
+  (assert (sintoma ?answer))
+	(while (neq ?answer 4) do
     (printout t crlf ?qBEG crlf crlf)
     (progn$ (?field $?qMID)
       (printout t "    "?field-index ") " ?field "." crlf)
   )
     (printout t "Insert " ?*question-11* ": ")
     (bind ?answer (read))
-    (if (and (neq ?answer 9) (member ?answer ?*question-11*))
-      then
-        (assert (sintoma ?answer))
-    )
+    (assert (sintoma ?answer))
 	)
 ?answer)
 
@@ -139,6 +137,7 @@
     (printout t "    "?field-index ") " ?field "." crlf))
   (printout t "Insert " ?*question-12* ": ")
 	(bind ?answer (read))
+  (assert (sintoma-inflamacion ?answer))
 	(while (neq ?answer 5) do
     (printout t crlf ?qBEG crlf crlf)
     (progn$ (?field $?qMID)
@@ -146,10 +145,7 @@
   )
     (printout t "Insert " ?*question-12* ": ")
     (bind ?answer (read))
-    (if (and (neq ?answer 9) (member ?answer ?*question-12*))
-      then
-        (assert (sintoma ?answer))
-    )
+    (assert (sintoma-inflamacion ?answer))
 	)
 ?answer)
 
@@ -198,7 +194,6 @@
     "Dolor/escozor al orinar o al tener relaciones"
     "Dolor de garganta"
     "Algún tipo de erupción o berruga"
-
     "Terminar"
   ))
 )
@@ -211,6 +206,7 @@
   ?x<- (modulo-inflamacion)
 =>
   (bind ?r (ask-question12
+      "Parece que presentas una infección, si presentas alguno de éstos síntomas, selecciónalos."
       "fluido amarillento y/o maloliente"
       "dolor anorectal y deseo de evacuar continuo"
       "sangrado rectal"
@@ -219,9 +215,9 @@
     ))
 )
 
-(defrule uretritis
-  ?x<- (sintoma-inflamacion 1)
-)
+;(defrule uretritis
+;  ?x<- (sintoma-inflamacion 1)
+;)
 
 ;; Escribir en el menu varias posibles respuestas, en funcion de ellas, se ira preguntando sobre qué tipo de relación
 ;; ha tenido, y se irá saltando a los distintos modulos,  (Creo que un módulo por enfermedad estaria bien)
