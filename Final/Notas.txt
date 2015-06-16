@@ -22,26 +22,26 @@ http://es.euroclinix.net/que-hacer-con-ets.html
 	- ANATÓMICO: estenosis , fibrosis
 	- MECÁNICO: exprimir uretra
 	- coágulos,cálculos
-	- fluido purulento de aspecto claro y mucoide
-	- dolor al miccionar
+	*- fluido purulento de aspecto claro y mucoide
+	*- dolor al miccionar
 	- fiebre(excepcional)
 	- periodo de incubación de 2-5 días si es gonococica o 7-14 días si no gonococica
 	- Si gonococica=> sintomas++
 	- si no gonocócica=> puede no tener sintomas
-	- dolor testiculos
+	*- dolor testiculos
 
 *PROCTITIS->
 	- inflacación del recto
-	- dolor anorectal
-	- tenesmo
-	- sangrado
+	*- dolor anorectal
+	- tenesmo 
+	*- sangrado
 	- extreñimiento o diarrea
 	- secreción de moco o pus
 
 *BALANITIS->
 	- infección por cándidas
 	- frecuente en los no circuncidados
-	- prurito (ocasionalmente)
+	*- prurito (ocasionalmente)
 	- ardor tras contacto sexual
 
 *INFECCIONES FARÍNGEAS ->
@@ -54,7 +54,7 @@ DESCARTARLAS ANTES FARINGITIS DE REPETICIÓN QUE NO EVOLUCIONAN FAVORABLEMENTE A
 *ÚLCERA GENITAL -> tipos GRANULOMA INGUINAL, CHANCRIOIDE, LINFOGRANULOMA VENÉREO, 
 	- manifestaciones de una ITS(herpes simple y sífilis)
 	- generalmente países tropicales
-	- tumor eruptivo que se convierte en púspula y luego en úlcera con una areola roja ,vascularizada,sensible y dolorosa. Pueden aparecer úlceras satélites.
+	*- tumor eruptivo que se convierte en púspula y luego en úlcera con una areola roja ,vascularizada,sensible y dolorosa. Pueden aparecer úlceras satélites.
 	- inflamación ganglios ingles
 	- si no presenta adenitis=>GRANULOMA INGUINAL
        	Chancroide-> - periodo incubación 3-7 días
@@ -99,3 +99,23 @@ El anexo VII (Pag 64) puede resultar útil
 
 
 - Qué busca la gente cuando quiere conocer qué enfermedad tiene,. (Qué preguntas hacen)
+
+
+
+- orientación sexual
+- contactos con más de x personas en x meses
+- has tenido sexo sin protección 
+- pareja infiel
+- drogas
+- alguna prueba anterior?
+- pareja positivo en alguna prueba?
+
+
+
+
+
+
+
+
+
+

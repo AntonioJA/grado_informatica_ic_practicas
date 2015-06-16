@@ -152,18 +152,38 @@
 =>
   (bind ?r (ask-question1
     "Selecciona algunos de los siguiente síntomas"
-
-    "Dolor al orinar"
-    "Fluido amarillento"
-    "Dolor de testículos"
-    "Dolor ano-rectal"
-    "Sangrado"
-    "Tienes picor en tus partes"
+    "Dolor/escozor al orinar o al tener relaciones"
+;    "Fluido amarillento"
+;    "Dolor de testículos"
+;   "Dolor ano-rectal"
+;    "Sangrado"
+;    "Tienes picor en tus partes"
     "Dolor de garganta"
     "Algún tipo de erupción o berruga"
 
     "Terminar"
   ))
+)
+;;;;;;;;;;;;;;;;;;;;;;;;;
+;;MODULO INFLAMACIONES ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defrule inflamaciones
+?x<- (modulo-inflamaciones)
+=>	
+(bind ?r (ask-question1
+    "Upps! Podrías presentar una infección! A continuación selecciona qué sintomas presentas:"
+    "fluido amarillento y/o maloliente"
+;    "dolor testículos"
+    "dolor anorectal y deseo de evacuar continuo"
+    "sangrado rectal"
+    "escozor y ardor tras en coito"
+    "Terminar"
+  ))
+)
+
+(defrule uretritis
+?x<- (sintoma-inflamacion 1)	
 )
 
 ;; Escribir en el menu varias posibles respuestas, en funcion de ellas, se ira preguntando sobre qué tipo de relación
