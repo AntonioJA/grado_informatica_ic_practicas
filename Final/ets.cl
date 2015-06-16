@@ -120,11 +120,14 @@
 	(while (neq ?answer 9) do
     (printout t crlf ?qBEG crlf crlf)
     (progn$ (?field $?qMID)
-      (printout t "    "?field-index ")" ?field "." crlf)
+      (printout t "    "?field-index ") " ?field "." crlf)
   )
     (printout t "Insert " ?*question-11* ": ")
-  	(if (member ?answer ?*allowed-values-11*))
     (bind ?answer (read))
+    (if (and (neq ?answer 9) (member ?answer ?*question-11*))
+      then
+        (assert (sintoma ?answer))
+    )
 	)
 ?answer)
 
@@ -144,6 +147,24 @@
     "Bye"))
   (assert (response ?r))
   (watch facts)
+)
+
+(defmodule cambiar-a-inflamacion
+  ?x <- (sintoma 1)
+  =>
+  (assert (modulo-inflamacion))
+)
+
+(defmodule cambiar-a-faringitis
+  ?x <- (sintoma 2)
+  =>
+  (assert (modulo-faringitis))
+)
+
+(defmodule cambiar-a-ulcera
+  ?x <- (sintoma 3)
+  =>
+  (assert (modulo-ulcera))
 )
 
 ;; Asks for main sytoms of STDs
