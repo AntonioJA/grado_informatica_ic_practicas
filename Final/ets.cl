@@ -149,6 +149,24 @@
   (watch facts)
 )
 
+(defmodule cambiar-a-inflamacion
+  ?x <- (sintoma 1)
+  =>
+  (assert (modulo-inflamacion))
+)
+
+(defmodule cambiar-a-faringitis
+  ?x <- (sintoma 2)
+  =>
+  (assert (modulo-faringitis))
+)
+
+(defmodule cambiar-a-ulcera
+  ?x <- (sintoma 3)
+  =>
+  (assert (modulo-ulcera))
+)
+
 ;; Asks for main sytoms of STDs
 (defrule module11
   ?x <- (response 1)
