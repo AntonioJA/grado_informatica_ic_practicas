@@ -83,7 +83,7 @@
 )
 
 ;;; Global Variables
-(defglobal ?*allowed-values* = (create$ 0 1 2 3))
+(defglobal ?*allowed-values* = (create$ 1 2 3))
 
 ;; Function used to ask questions to the user
 ;; @param ?qBEG: First part of the question
