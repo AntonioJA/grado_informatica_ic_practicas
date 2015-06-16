@@ -85,6 +85,7 @@
 ;;; Global Variables
 (defglobal ?*allowed-values* = (create$ 1 2 3))
 (defglobal ?*question-11* = (create$ 1 2 3 4 5 6 7 8 9))
+(defglobal ?*question-12* = (create$ 1 2 3 4 5))
 
 ;; Function used to ask questions to the user
 ;; @param ?qBEG: First part of the question
@@ -131,6 +132,27 @@
 	)
 ?answer)
 
+(deffunction ask-question12 (?qBEG $?qMID)
+
+	(printout t crlf ?qBEG crlf crlf)
+  (progn$ (?field $?qMID)
+    (printout t "    "?field-index ") " ?field "." crlf))
+  (printout t "Insert " ?*question-12* ": ")
+	(bind ?answer (read))
+	(while (neq ?answer 5) do
+    (printout t crlf ?qBEG crlf crlf)
+    (progn$ (?field $?qMID)
+      (printout t "    "?field-index ") " ?field "." crlf)
+  )
+    (printout t "Insert " ?*question-12* ": ")
+    (bind ?answer (read))
+    (if (and (neq ?answer 9) (member ?answer ?*question-12*))
+      then
+        (assert (sintoma ?answer))
+    )
+	)
+?answer)
+
 ;;;;;;;;;;;;;;;;;
 ;; Main Module ;;
 ;;;;;;;;;;;;;;;;;
@@ -149,19 +171,19 @@
   (watch facts)
 )
 
-(defmodule cambiar-a-inflamacion
+(defrule cambiar-a-inflamacion
   ?x <- (sintoma 1)
   =>
   (assert (modulo-inflamacion))
 )
 
-(defmodule cambiar-a-faringitis
+(defrule cambiar-a-faringitis
   ?x <- (sintoma 2)
   =>
   (assert (modulo-faringitis))
 )
 
-(defmodule cambiar-a-ulcera
+(defrule cambiar-a-ulcera
   ?x <- (sintoma 3)
   =>
   (assert (modulo-ulcera))
@@ -174,11 +196,6 @@
   (bind ?r (ask-question1
     "Selecciona algunos de los siguiente síntomas"
     "Dolor/escozor al orinar o al tener relaciones"
-;    "Fluido amarillento"
-;    "Dolor de testículos"
-;   "Dolor ano-rectal"
-;    "Sangrado"
-;    "Tienes picor en tus partes"
     "Dolor de garganta"
     "Algún tipo de erupción o berruga"
 
@@ -190,21 +207,20 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defrule inflamaciones
-?x<- (modulo-inflamaciones)
-=>	
-(bind ?r (ask-question1
-    "Upps! Podrías presentar una infección! A continuación selecciona qué sintomas presentas:"
-    "fluido amarillento y/o maloliente"
-;    "dolor testículos"
-    "dolor anorectal y deseo de evacuar continuo"
-    "sangrado rectal"
-    "escozor y ardor tras en coito"
-    "Terminar"
-  ))
+
+  ?x<- (modulo-inflamacion)
+=>
+  (bind ?r (ask-question12
+      "fluido amarillento y/o maloliente"
+      "dolor anorectal y deseo de evacuar continuo"
+      "sangrado rectal"
+      "escozor y ardor tras en coito"
+      "Terminar"
+    ))
 )
 
 (defrule uretritis
-?x<- (sintoma-inflamacion 1)	
+  ?x<- (sintoma-inflamacion 1)
 )
 
 ;; Escribir en el menu varias posibles respuestas, en funcion de ellas, se ira preguntando sobre qué tipo de relación
