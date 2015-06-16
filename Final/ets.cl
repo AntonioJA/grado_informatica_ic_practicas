@@ -106,7 +106,7 @@
 ?answer)
 
 ;;;;;;;;;;;;;;;;;
-;; Main Alex ;;
+;; Main Module ;;
 ;;;;;;;;;;;;;;;;;
 ;; The first thing we are going to do is ask the user who thinks he has.
 (defrule firstQuestion
