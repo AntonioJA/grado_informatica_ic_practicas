@@ -56,6 +56,9 @@
   (std
     (std-name ulcera-genital) (std-symtom inflamacion-ganglios-ingles) )
 
+   (std
+    (std-name ulcera-genital) (std-symtom erupcion-pustula) )
+
   ;; Need more info.
   ;(std
   ;  (std-name verruga-genital) (std-symtom ) )
@@ -68,6 +71,7 @@
   ;; Sífilis prematura
   (std
     (std-name sifilis) (std-symtom ulcera) )
+  ;;Sífilis secundaria
   (std
     (std-name sifilis) (std-symtom roseola-rosa-palida-tronco) )
   (std
