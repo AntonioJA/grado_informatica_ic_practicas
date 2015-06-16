@@ -84,6 +84,7 @@
 
 ;;; Global Variables
 (defglobal ?*allowed-values* = (create$ 1 2 3))
+(defglobal ?*question-11* = (create$ 1 2 3 4 5 6 7 8 9))
 
 ;; Function used to ask questions to the user
 ;; @param ?qBEG: First part of the question
@@ -105,6 +106,28 @@
 	)
 ?answer)
 
+;; Function used to ask questions to the user
+;; @param ?qBEG: First part of the question
+;; @param $?qMID: List of possible user answers
+;; @return ?answer: Variable with the user input text
+(deffunction ask-question1 (?qBEG $?qMID)
+
+	(printout t crlf ?qBEG crlf crlf)
+  (progn$ (?field $?qMID)
+    (printout t "    "?field-index ") " ?field "." crlf))
+  (printout t "Insert " ?*question-11* ": ")
+	(bind ?answer (read))
+	(while (neq ?answer 9) do
+    (printout t crlf ?qBEG crlf crlf)
+    (progn$ (?field $?qMID)
+      (printout t "    "?field-index ")" ?field "." crlf)
+  )
+    (printout t "Insert " ?*question-11* ": ")
+  	(if (member ?answer ?*allowed-values-11*))
+    (bind ?answer (read))
+	)
+?answer)
+
 ;;;;;;;;;;;;;;;;;
 ;; Main Module ;;
 ;;;;;;;;;;;;;;;;;
@@ -115,11 +138,32 @@
   (retract ?x)
 	(bind ?r (ask-question
     "What happends to you?"
-    "I think I may have an STD"
-    "I've been in a risk situation"
+    "I have an STD" ;; Module symtoms
+    "I think I may have an STD" ;; Module no-symtoms
+    "I would like to know more about STDs" ;; Module info
     "Bye"))
   (assert (response ?r))
   (watch facts)
+)
+
+;; Asks for main sytoms of STDs
+(defrule module11
+  ?x <- (response 1)
+=>
+  (bind ?r (ask-question1
+    "Selecciona algunos de los siguiente síntomas"
+
+    "Dolor al orinar"
+    "Fluido amarillento"
+    "Dolor de testículos"
+    "Dolor ano-rectal"
+    "Sangrado"
+    "Tienes picor en tus partes"
+    "Dolor de garganta"
+    "Algún tipo de erupción o berruga"
+
+    "Terminar"
+  ))
 )
 
 ;; Escribir en el menu varias posibles respuestas, en funcion de ellas, se ira preguntando sobre qué tipo de relación
