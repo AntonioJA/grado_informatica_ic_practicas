@@ -7,6 +7,8 @@
     (slot std-symtom-where)
 )
 
+
+
 ;; Facts
 (deffacts Kwnoledge
   (std
