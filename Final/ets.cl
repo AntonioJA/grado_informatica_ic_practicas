@@ -310,6 +310,15 @@
 ;;BALANITIS;;
 ;;;;;;;;;;;;;
 
+(defrule INFORMAbalanitis
+?x<- (infobalanitis)
+=>
+ (printout t "La balanitis es una infección por cándidas en el hombre. Es menos frecuente en los no circuncidados. " crlf
+	    "No es grave, es muy frecuente y fácil de tratar.  " crlf
+	    "Algunos síntomas observados en pacientes con Balanitis son: " crlf
+	    "picor en la zona y sensación de ardor después del coito. " crlf	
+  )
+)
 
 
 
