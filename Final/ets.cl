@@ -190,7 +190,7 @@
   ?x <- (response 1)
 =>
   (bind ?r (ask-question1
-    "Selecciona algunos de los siguiente síntomas" 
+    "Selecciona algunos de los siguiente síntomas"
     "Dolor/escozor al orinar o al tener relaciones"
     "Dolor de garganta"
     "Algún tipo de erupción o berruga"
@@ -202,9 +202,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defrule inflamaciones
-=>	
-    "Upps! Podrías presentar una infección! A continuación selecciona qué sintomas presentas:"
-
   ?x<- (modulo-inflamacion)
 =>
   (bind ?r (ask-question12
@@ -230,16 +227,16 @@
 ;;;;;;;;;;;;;
 
 (defrule proctitis
-?x<- (sintoma-inflamacion 2)	
+?x<- (sintoma-inflamacion 2)
 =>
 (assert(infoproctitis))
 )
 
 (defrule proctitis2
-;?x <- (sintoma-inflamacion 2)	
-?y <- (sintoma-inflamacion 3)
+  ?x <- (sintoma-inflamacion 2)
+  ?y <- (sintoma-inflamacion 3)
 =>
-(assert(infoproctitis))
+  (assert(infoproctitis))
 )
 
 ;;;;;;;;;;;;;
@@ -247,9 +244,9 @@
 ;;;;;;;;;;;;;
 
 (defrule balanitis
-;?x <- (sintoma-inflamacion 4)	
+  ?x <- (sintoma-inflamacion 4)
 =>
-(assert(infobalanitis))
+  (assert(infobalanitis))
 )
 
 
@@ -258,30 +255,24 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defrule informacion
-?x<- (modulo-informacion)
-=>	
-(printout t "A continuación, te presentamos algunas descripciones de enfermades que, dado lo que nos has dicho" crlf
-	    "podrías padecer. No olvides consultar con tu médico en caso de preocupación. ¡NUNCA TE AUTOMEDIQUES!" crlf
+  ?x <- (modulo-informacion)
+=>
+  (printout t "A continuación, te presentamos algunas descripciones de enfermades que, dado lo que nos has dicho" crlf
+	    "podrías padecer. No olvides consultar con tu médico en caso de preocupación. ¡NUNCA TE AUTOMEDIQUES!" crlf)
 )
 ;;;;;;;;;;;;;
 ;;URETRITIS;;
 ;;;;;;;;;;;;;
 
 (defrule INFORMAuretritis
-?x<- (infouretritis)	
+  ?x<- (infouretritis)
 =>
-(printout t "La Uretritis es una inflamación de la uretra, que puede ser causa O NO de una infección. " crlf
+  (printout t "La Uretritis es una inflamación de la uretra, que puede ser causa O NO de una infección. " crlf
 	    "Cuando no es causa de una infección, puede deberse a algún tipo de problema anatómico " crlf
-            "como la estenosis o la fibrosis). Cuando sí lo es, puede deberse a la presencia de algún microorganismo." crlf
-	    " Te tranquilizará saber que, en hombres sanos, se da en un (20%-30%) de los casos" crlf
+      "(como la estenosis o la fibrosis). Cuando sí lo es, puede deberse a la presencia de algún microorganismo." crlf
+	    "Te tranquilizará saber que, en hombres sanos, se da en un (20%-30%) de los casos" crlf)
 )
-)
-
-
-
 
 
 ;; Escribir en el menu varias posibles respuestas, en funcion de ellas, se ira preguntando sobre qué tipo de relación
 ;; ha tenido, y se irá saltando a los distintos modulos,  (Creo que un módulo por enfermedad estaria bien)
-
-
