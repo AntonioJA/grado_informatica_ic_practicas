@@ -359,7 +359,41 @@
     ))
   (assert (modulo-informacion))
 )
-
+(defrule ulcera1
+  (modulo-ulcera)
+=>
+  (assert (modulo-informacion))
+)
+(defrule ulcera2
+  (modulo-ulcera)
+=>
+  (assert (modulo-informacion))
+)
+(defrule ulcera3
+  (modulo-ulcera)
+=>
+  (assert (modulo-informacion))
+)
+(defrule ulcera4
+  (modulo-ulcera)
+=>
+  (assert (modulo-informacion))
+)
+(defrule ulcera5
+  (modulo-ulcera)
+=>
+  (assert (modulo-informacion))
+)
+(defrule ulcera6
+  (modulo-ulcera)
+=>
+  (assert (modulo-informacion))
+)
+(defrule ulcera7
+  (modulo-ulcera)
+=>
+  (assert (modulo-informacion))
+)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
