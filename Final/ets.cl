@@ -181,6 +181,19 @@
   (watch facts)
 )
 
+;; Asks for main sytoms of STDs
+(defrule module11
+  ?x <- (response 1)
+=>
+  (bind ?r (ask-question1
+    "Selecciona algunos de los siguiente síntomas"
+    "Dolor/escozor al orinar o al tener relaciones"
+    "Dolor de garganta"
+    "Algún tipo de erupción o berruga"
+    "Terminar"
+  ))
+)
+
 (defrule cambiar-a-inflamacion
   ?x <- (sintoma 1)
   =>
@@ -197,19 +210,6 @@
   ?x <- (sintoma 3)
   =>
   (assert (modulo-ulcera))
-)
-
-;; Asks for main sytoms of STDs
-(defrule module11
-  ?x <- (response 1)
-=>
-  (bind ?r (ask-question1
-    "Selecciona algunos de los siguiente síntomas"
-    "Dolor/escozor al orinar o al tener relaciones"
-    "Dolor de garganta"
-    "Algún tipo de erupción o berruga"
-    "Terminar"
-  ))
 )
 
 (defrule inflamaciones
@@ -278,6 +278,18 @@
     ))
     (assert (sintoma-faringitis-oral-pareja ?r))
 )
+
+(defrule exit-faringitis-normal
+  ml <- (modulo-faringitis)
+  x <- (sintoma-faringitis-oral 0)
+=>
+  (assert (modulo-informacion))
+  (assert (faringitis-normal))
+  (retract ?ml)
+  (retract ?x)
+)
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
