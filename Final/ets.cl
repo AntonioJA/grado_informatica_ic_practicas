@@ -277,6 +277,7 @@
 ;;;;;;;;;;;;;
 ;;URETRITIS;;
 ;;;;;;;;;;;;;
+
 (defrule uretritis
   ?x<- (sintoma-inflamacion 1)
 =>
@@ -331,8 +332,38 @@
   (printout t "La Uretritis es una inflamación de la uretra, que puede ser causa O NO de una infección. " crlf
 	    "Cuando no es causa de una infección, puede deberse a algún tipo de problema anatómico " crlf
       "(como la estenosis o la fibrosis). Cuando sí lo es, puede deberse a la presencia de algún microorganismo." crlf
-	    "Te tranquilizará saber que, en hombres sanos, se da en un (20%-30%) de los casos" crlf)
+	    "En hombres sanos, se da en un (20%-30%) de los casos" crlf
+	    "El periodo de incubación de la uretritis oscila entre 5 y 20 días, según el tipo de Uretritis. " crlf
+	    "A pesar de que a veces puede presentar complicaciones, por lo general, no es una enfermedad grave." crlf
+	    "Algunos síntomas observados en pacientes con Uretritis son: " crlf
+	    "dolor al miccionar, fluido de aspecto claro y mucoso, con un color blanco o amarillo y olor fuerte y extraño," crlf
+	    "dolor de testículos. Si presentas alguno d estos síntomas, consulta con tu médico para que te haga una prueba de uretritis" crlf
+  )
 )
+
+;;;;;;;;;;;;;
+;;PROCTITIS;;
+;;;;;;;;;;;;;
+
+(defrule INFORMAproctitis
+?x<- (infoproctitis)
+=>
+ (printout t "La Proctitis es una inflamación del recto, que puede venir O NO por tansmisión sexual. " crlf
+	    "Las que no son transmitidas por vía sexual, son poco frecuentes." crlf
+	  "Para diferenciarla entre si se debe a trasmisión sexual o no, hay que tener en cuenta las práticas sexuales del paciente. " crlf
+	    "Algunos síntomas observados en pacientes con Proctitis son: " crlf
+	    "dolor anorectal, secreción de moco o pus , incluso a veces pueden estar acompañados de sangrado rectal, " crlf
+	    "deseo de evacuar constante y extreñimiento o diarrea." crlf
+	    "La proctitis por transmisión sexual se da más en varones entre 15-30 años.En españa se diagnostican unos 2000 casos nuevos al año. "crlf
+            "En países desarollados es más común en países de noreste de Europa y NorteAmérica" crlf	
+  )
+)		
+
+;;;;;;;;;;;;;
+;;BALANITIS;;
+;;;;;;;;;;;;;
+
+
 
 
 ;; Escribir en el menu varias posibles respuestas, en funcion de ellas, se ira preguntando sobre qué tipo de relación
