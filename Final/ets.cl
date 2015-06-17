@@ -86,6 +86,7 @@
 (defglobal ?*allowed-values* = (create$ 1 2 3))
 (defglobal ?*question-11* = (create$ 1 2 3 4))
 (defglobal ?*question-12* = (create$ 1 2 3 4 5))
+(defglobal ?*yes-no* = (create$ 0 1))
 
 ;; Function used to ask questions to the user
 ;; @param ?qBEG: First part of the question
@@ -147,6 +148,21 @@
 	)
 ?answer)
 
+(deffunction ask-yesno-question (?qBEG $?qMID)
+	(printout t crlf ?qBEG crlf crlf)
+  (progn$ (?field $?qMID)
+    (printout t "    "(- ?field-index 1)  ") " ?field "." crlf))
+  (printout t "Insert " ?*yes-no* ": ")
+	(bind ?answer (read))
+
+  (while (not (member ?answer ?*yes-no*)) do
+    (printout t crlf ?qBEG crlf crlf)
+    (progn$ (?field $?qMID)
+      (printout t "    "(- ?field-index 1) ") " ?field "." crlf))
+    (printout t "Insert " ?*yes-no* ": ")
+    (bind ?answer (read))
+	)
+?answer)
 ;;;;;;;;;;;;;;;;;
 ;; Main Module ;;
 ;;;;;;;;;;;;;;;;;
@@ -201,10 +217,12 @@
 =>
   (bind ?r (ask-question12
       "Parece que presentas una infección, si presentas alguno de éstos síntomas, selecciónalos."
+
       "Fluido amarillento y/o maloliente"
       "Dolor anorectal y deseo de evacuar continuo"
       "Sangrado rectal"
       "Escozor y ardor tras en coito"
+
       "Terminar"
     ))
 )
@@ -212,6 +230,54 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;MODULO FARINGITIS    ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;
+(defrule faringitis1
+  (modulo-faringitis)
+=>
+  (bind ?r (ask-yesno-question
+      "¿Has practicado últimamente sexo oral?"
+
+      "No"
+      "Sí"
+    ))
+    (assert (sintoma-faringitis-oral ?r))
+)
+(defrule faringitis11
+  (modulo-faringitis)
+  (sintoma-faringitis-oral 1)
+=>
+  (bind ?r (ask-yesno-question
+      "¿Con más de una persona en los últimos meses?"
+
+      "No"
+      "Sí"
+    ))
+    (assert (sintoma-faringitis-mas-de-uno ?r))
+)
+(defrule faringitis12
+  (modulo-faringitis)
+  (sintoma-faringitis-mas-de-uno 1)
+=>
+  (bind ?r (ask-yesno-question
+      "¿Te has hecho alguna prueba en el pasado?"
+
+      "No"
+      "Sí"
+    ))
+    (assert (sintoma-faringitis-mas-de-uno-prueba ?r))
+)
+
+(defrule faringitis13
+  (modulo-faringitis)
+  (sintoma-faringitis-oral 1)
+=>
+  (bind ?r (ask-yesno-question
+      "¿Ha dado tu pareja positivo en alguna prueba?"
+
+      "No"
+      "Sí"
+    ))
+    (assert (sintoma-faringitis-oral-pareja ?r))
+)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -302,9 +368,9 @@
 	    "dolor anorectal, secreción de moco o pus , incluso a veces pueden estar acompañados de sangrado rectal, " crlf
 	    "deseo de evacuar constante y extreñimiento o diarrea." crlf
 	    "La proctitis por transmisión sexual se da más en varones entre 15-30 años.En españa se diagnostican unos 2000 casos nuevos al año. "crlf
-            "En países desarollados es más común en países de noreste de Europa y NorteAmérica" crlf	
+            "En países desarollados es más común en países de noreste de Europa y NorteAmérica" crlf
   )
-)		
+)
 
 ;;;;;;;;;;;;;
 ;;BALANITIS;;
