@@ -231,7 +231,7 @@
 ;;MODULO FARINGITIS    ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 (defrule faringitis1
-  ?ml <- (modulo-faringitis)
+  (modulo-faringitis)
 =>
   (bind ?r (ask-yesno-question
       "¿Has practicado últimamente sexo oral?"
@@ -242,7 +242,7 @@
     (assert (sintoma-faringitis-oral ?r))
 )
 (defrule faringitis11
-  ?ml <- (modulo-faringitis)
+  (modulo-faringitis)
   (sintoma-faringitis-oral 1)
 =>
   (bind ?r (ask-yesno-question
@@ -254,7 +254,7 @@
     (assert (sintoma-faringitis-mas-de-uno ?r))
 )
 (defrule faringitis12
-  ?ml <- (modulo-faringitis)
+  (modulo-faringitis)
   (sintoma-faringitis-mas-de-uno 1)
 =>
   (bind ?r (ask-yesno-question
@@ -264,6 +264,19 @@
       "Sí"
     ))
     (assert (sintoma-faringitis-mas-de-uno-prueba ?r))
+)
+
+(defrule faringitis13
+  (modulo-faringitis)
+  (sintoma-faringitis-oral 1)
+=>
+  (bind ?r (ask-yesno-question
+      "¿Ha dado tu pareja positivo en alguna prueba?"
+
+      "No"
+      "Sí"
+    ))
+    (assert (sintoma-faringitis-oral-pareja ?r))
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
