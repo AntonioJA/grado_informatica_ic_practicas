@@ -253,6 +253,19 @@
     ))
     (assert (sintoma-faringitis-mas-de-uno ?r))
 )
+(defrule faringitis13
+  (modulo-faringitis)
+  (sintoma-faringitis-oral 1)
+  (sintoma-faringitis-mas-de-uno 0)
+=>
+  (bind ?r (ask-yesno-question
+      "¿Ha dado tu pareja positivo en alguna prueba?"
+
+      "No"
+      "Sí"
+    ))
+    (assert (sintoma-faringitis-oral-pareja ?r))
+)
 (defrule faringitis12
   (modulo-faringitis)
   (sintoma-faringitis-mas-de-uno 1)
@@ -266,27 +279,29 @@
     (assert (sintoma-faringitis-mas-de-uno-prueba ?r))
 )
 
-(defrule faringitis13
-  (modulo-faringitis)
-  (sintoma-faringitis-oral 1)
-=>
-  (bind ?r (ask-yesno-question
-      "¿Ha dado tu pareja positivo en alguna prueba?"
-
-      "No"
-      "Sí"
-    ))
-    (assert (sintoma-faringitis-oral-pareja ?r))
-)
 
 (defrule exit-faringitis-normal
-  ml <- (modulo-faringitis)
-  x <- (sintoma-faringitis-oral 0)
+  ?ml <- (modulo-faringitis)
+  ?x <- (sintoma-faringitis-oral 0)
 =>
   (assert (modulo-informacion))
   (assert (faringitis-normal))
   (retract ?ml)
   (retract ?x)
+)
+
+(defrule exit-faringitis-bad
+  ?ml <- (modulo-faringitis)
+  ?x <- (sintoma-faringitis-oral 1)
+  ?x1 <- (sintoma-faringitis-mas-de-uno 1)
+  ?x2 <- (sintoma-faringitis-mas-de-uno-prueba 0)
+=>
+  (assert (modulo-informacion))
+  (assert (faringitis-mala))
+  (retract ?ml)
+  (retract ?x)
+  (retract ?x1)
+  (retract ?x2)
 )
 
 
@@ -342,7 +357,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defrule informacion
-  ?x <- (modulo-informacion)
+  (modulo-informacion)
 =>
   (printout t "A continuación, te presentamos algunas descripciones de enfermades que, dado lo que nos has dicho" crlf
 	    "podrías padecer. No olvides consultar con tu médico en caso de preocupación. ¡NUNCA TE AUTOMEDIQUES!" crlf)
@@ -394,7 +409,7 @@
  (printout t "La balanitis es una infección por cándidas en el hombre. Es menos frecuente en los no circuncidados. " crlf
 	    "No es grave, es muy frecuente y fácil de tratar.  " crlf
 	    "Algunos síntomas observados en pacientes con Balanitis son: " crlf
-	    "picor en la zona y sensación de ardor después del coito. " crlf	
+	    "picor en la zona y sensación de ardor después del coito. " crlf
   )
 )
 
