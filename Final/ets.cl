@@ -354,7 +354,6 @@
       "Berruga en los genitales"
       "Liendres o ladillas"
       "Úlcera o erupción cutánea"
-
       "Terminar"
     ))
   (assert (modulo-informacion))
@@ -395,7 +394,26 @@
   (assert (modulo-informacion))
 )
 
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;
+;; ULCERA GENITAL ;;
+;;;;;;;;;;;;;;;;;;;;
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; BERRUGAS GENITALES ;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;
+;; ECTOPARASITOSIS ;;
+;;;;;;;;;;;;;;;;;;;;;
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
