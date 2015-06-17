@@ -271,8 +271,8 @@
   ?ml <- (modulo-faringitis)
   ?x <- (sintoma-faringitis-oral 0)
 =>
-  (assert (modulo-informacion))
   (assert (faringitis-normal))
+  (assert (modulo-informacion))
   (retract ?ml)
   (retract ?x)
 )
@@ -283,31 +283,19 @@
   ?x1 <- (sintoma-faringitis-mas-de-uno ?y)
   ?x2 <- (sintoma-faringitis-oral-pareja 1)
 =>
-  (assert (modulo-informacion))
   (assert (faringitis-mala))
+  (assert (modulo-informacion))
   (retract ?ml)
   (retract ?x)
   (retract ?x1)
   (retract ?x2)
 )
 
-(defrule exit-faringitis-mala1
-  ?ml <- (modulo-faringitis)
-  ?x <- (sintoma-faringitis-oral 1)
-  ?x2 <- (sintoma-faringitis-mas-de-uno 1)
-  ?x3 <- (sintoma-faringitis-oral-pareja 1)
-=>
-  (assert (modulo-informacion))
-  (assert (faringitis-mala))
-  (retract ?ml)
-  (retract ?x)
-)
-
 (defrule exit-faringitis-normal-fallback
   ?ml <- (modulo-faringitis)
 =>
-  (assert (modulo-informacion))
   (assert (faringitis-normal))
+  (assert (modulo-informacion))
   (retract ?ml)
 )
 
@@ -362,10 +350,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defrule informacion
-  (modulo-informacion)
+  ?ml <- (modulo-informacion)
 =>
   (printout t "A continuación, te presentamos algunas descripciones de enfermades que, dado lo que nos has dicho" crlf
-	    "podrías padecer. No olvides consultar con tu médico en caso de preocupación. ¡NUNCA TE AUTOMEDIQUES!" crlf)
+	    "podrías padecer. No olvides consultar con tu médico en caso de preocupación. ¡NUNCA TE AUTOMEDIQUES!" crlf crlf)
+  (retract ?ml)
 )
 ;;;;;;;;;;;;;
 ;;URETRITIS;;
@@ -382,7 +371,7 @@
 	    "A pesar de que a veces puede presentar complicaciones, por lo general, no es una enfermedad grave." crlf
 	    "Algunos síntomas observados en pacientes con Uretritis son: " crlf
 	    "dolor al miccionar, fluido de aspecto claro y mucoso, con un color blanco o amarillo y olor fuerte y extraño," crlf
-	    "dolor de testículos. Si presentas alguno d estos síntomas, consulta con tu médico para que te haga una prueba de uretritis" crlf
+	    "dolor de testículos. Si presentas alguno d estos síntomas, consulta con tu médico para que te haga una prueba de uretritis" crlf crlf
   )
 )
 
@@ -400,7 +389,7 @@
 	    "dolor anorectal, secreción de moco o pus , incluso a veces pueden estar acompañados de sangrado rectal, " crlf
 	    "deseo de evacuar constante y extreñimiento o diarrea." crlf
 	    "La proctitis por transmisión sexual se da más en varones entre 15-30 años.En españa se diagnostican unos 2000 casos nuevos al año. "crlf
-            "En países desarollados es más común en países de noreste de Europa y NorteAmérica" crlf
+            "En países desarollados es más común en países de noreste de Europa y NorteAmérica" crlf crlf
   )
 )
 
@@ -414,7 +403,7 @@
  (printout t "La balanitis es una infección por cándidas en el hombre. Es menos frecuente en los no circuncidados. " crlf
 	    "No es grave, es muy frecuente y fácil de tratar.  " crlf
 	    "Algunos síntomas observados en pacientes con Balanitis son: " crlf
-	    "picor en la zona y sensación de ardor después del coito. " crlf
+	    "picor en la zona y sensación de ardor después del coito. " crlf crlf
   )
 )
 
@@ -423,32 +412,32 @@
 ;;;;;;;;;;;;;;
 
 (defrule INFORMAfaringitisMala
-(faringitis-mala)
+  (faringitis-mala)
 =>
  (printout t "La faringitis de origen infeccioso transmitida sexualmente es el resultado de las relaciones orogenitales." crlf
 		"La infección se transmite más fácilmente tras una felación que después de un cunnilingus. Se trasmite tanto de la" crlf
- 		" boca a los genitales como de los genitales a la boca. " crlf 
-		" Algunos síntomas observados en pacientes con este tipo de Faringitis son: " crlf
-		"dolor de garganta producido al tragar fluidos, inflamación de los ganglios. " crlf
-		"Sin embargo, es frecuentemente Asíntomática.
+ 		"Boca a los genitales como de los genitales a la boca. " crlf
+		"Algunos síntomas observados en pacientes con este tipo de Faringitis son: " crlf
+		"Dolor de garganta producido al tragar fluidos, inflamación de los ganglios. " crlf
+		"Sin embargo, es frecuentemente Asíntomática." crlf
 		"Normalmente este tipo de faringitis se diagnostica como una faringitis normal (o faringitis de repetición)" crlf
-		" inicialmente, y si no se evoluciona bien al tratamiento habitual que se suele seguir, se trata de " crlf
-		" diagnosticar este tipo de faringitis, basándose en las prácticas sexuales del paciente. " crlf
-))
+		"Inicialmente, y si no se evoluciona bien al tratamiento habitual que se suele seguir, se trata de " crlf
+		"Diagnosticar este tipo de faringitis, basándose en las prácticas sexuales del paciente. " crlf crlf)
+)
 
 (defrule INFORMAfaringitis
 (faringitis-normal)
 =>
  (printout t "La faringitis es la inflamación de la mucosa que reviste la faringe." crlf
 	     "Generalmente le acompañan síntomas como deglución difícil, amígdalas inflamadas y fiebre más o menos elevada." crlf
- 	     "Las posibles causas de la faringitis son las infecciones víricas, infecciones bacterianas " crlf 
+ 	     "Las posibles causas de la faringitis son las infecciones víricas, infecciones bacterianas " crlf
 	     " o reacciones alérgicas. " crlf
 	     " No suele ser grave. El tratamiento que se suele poner " crlf
 	     " consiste en administración de líquidos y reposo, analgésicos y antinflamatorios (en general paracetamol,ibuprofeno..)" crlf
-	     " o antisépticos chupados." crlf
+	     " o antisépticos chupados." crlf crlf
 ))
 
- 
+
 
 
 ;; Escribir en el menu varias posibles respuestas, en funcion de ellas, se ira preguntando sobre qué tipo de relación
