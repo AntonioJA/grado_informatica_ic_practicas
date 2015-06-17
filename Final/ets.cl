@@ -418,6 +418,37 @@
   )
 )
 
+;;;;;;;;;;;;;;
+;;FARINGITIS;;
+;;;;;;;;;;;;;;
+
+(defrule INFORMAfaringitisMala
+(faringitis-mala)
+=>
+ (printout t "La faringitis de origen infeccioso transmitida sexualmente es el resultado de las relaciones orogenitales." crlf
+		"La infección se transmite más fácilmente tras una felación que después de un cunnilingus. Se trasmite tanto de la" crlf
+ 		" boca a los genitales como de los genitales a la boca. " crlf 
+		" Algunos síntomas observados en pacientes con este tipo de Faringitis son: " crlf
+		"dolor de garganta producido al tragar fluidos, inflamación de los ganglios. " crlf
+		"Sin embargo, es frecuentemente Asíntomática.
+		"Normalmente este tipo de faringitis se diagnostica como una faringitis normal (o faringitis de repetición)" crlf
+		" inicialmente, y si no se evoluciona bien al tratamiento habitual que se suele seguir, se trata de " crlf
+		" diagnosticar este tipo de faringitis, basándose en las prácticas sexuales del paciente. " crlf
+))
+
+(defrule INFORMAfaringitis
+(faringitis-normal)
+=>
+ (printout t "La faringitis es la inflamación de la mucosa que reviste la faringe." crlf
+	     "Generalmente le acompañan síntomas como deglución difícil, amígdalas inflamadas y fiebre más o menos elevada." crlf
+ 	     "Las posibles causas de la faringitis son las infecciones víricas, infecciones bacterianas " crlf 
+	     " o reacciones alérgicas. " crlf
+	     " No suele ser grave. El tratamiento que se suele poner " crlf
+	     " consiste en administración de líquidos y reposo, analgésicos y antinflamatorios (en general paracetamol,ibuprofeno..)" crlf
+	     " o antisépticos chupados." crlf
+))
+
+ 
 
 
 ;; Escribir en el menu varias posibles respuestas, en funcion de ellas, se ira preguntando sobre qué tipo de relación
