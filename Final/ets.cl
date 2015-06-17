@@ -231,7 +231,7 @@
 ;;MODULO FARINGITIS    ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 (defrule faringitis1
-  (modulo-faringitis)
+  ?ml <- (modulo-faringitis)
 =>
   (bind ?r (ask-yesno-question
       "¿Has practicado últimamente sexo oral?"
@@ -242,7 +242,7 @@
     (assert (sintoma-faringitis-oral ?r))
 )
 (defrule faringitis11
-  (modulo-faringitis)
+  ?ml <- (modulo-faringitis)
   (sintoma-faringitis-oral 1)
 =>
   (bind ?r (ask-yesno-question
@@ -253,17 +253,17 @@
     ))
     (assert (sintoma-faringitis-mas-de-uno ?r))
 )
-(defrule faringitis11
-  (modulo-faringitis)
+(defrule faringitis12
+  ?ml <- (modulo-faringitis)
   (sintoma-faringitis-mas-de-uno 1)
 =>
   (bind ?r (ask-yesno-question
-      "¿Con más de una persona en los últimos meses?"
+      "¿Te has hecho alguna prueba en el pasado?"
 
       "No"
       "Sí"
     ))
-    (assert (sintoma-faringitis-mas-de-uno ?r))
+    (assert (sintoma-faringitis-mas-de-uno-prueba ?r))
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -355,9 +355,9 @@
 	    "dolor anorectal, secreción de moco o pus , incluso a veces pueden estar acompañados de sangrado rectal, " crlf
 	    "deseo de evacuar constante y extreñimiento o diarrea." crlf
 	    "La proctitis por transmisión sexual se da más en varones entre 15-30 años.En españa se diagnostican unos 2000 casos nuevos al año. "crlf
-            "En países desarollados es más común en países de noreste de Europa y NorteAmérica" crlf	
+            "En países desarollados es más común en países de noreste de Europa y NorteAmérica" crlf
   )
-)		
+)
 
 ;;;;;;;;;;;;;
 ;;BALANITIS;;
