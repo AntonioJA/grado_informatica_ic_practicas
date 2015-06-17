@@ -266,19 +266,6 @@
     ))
     (assert (sintoma-faringitis-oral-pareja ?r))
 )
-(defrule faringitis12
-  (modulo-faringitis)
-  (sintoma-faringitis-mas-de-uno 1)
-=>
-  (bind ?r (ask-yesno-question
-      "¿Te has hecho alguna prueba en el pasado?"
-
-      "No"
-      "Sí"
-    ))
-    (assert (sintoma-faringitis-mas-de-uno-prueba ?r))
-)
-
 
 (defrule exit-faringitis-normal
   ?ml <- (modulo-faringitis)
@@ -290,11 +277,11 @@
   (retract ?x)
 )
 
-(defrule exit-faringitis-bad
+(defrule exit-faringitis-mala
   ?ml <- (modulo-faringitis)
   ?x <- (sintoma-faringitis-oral 1)
-  ?x1 <- (sintoma-faringitis-mas-de-uno 1)
-  ?x2 <- (sintoma-faringitis-mas-de-uno-prueba 0)
+  ?x1 <- (sintoma-faringitis-mas-de-uno ?y)
+  ?x2 <- (sintoma-faringitis-oral-pareja 1)
 =>
   (assert (modulo-informacion))
   (assert (faringitis-mala))
@@ -304,7 +291,25 @@
   (retract ?x2)
 )
 
+(defrule exit-faringitis-mala1
+  ?ml <- (modulo-faringitis)
+  ?x <- (sintoma-faringitis-oral 1)
+  ?x2 <- (sintoma-faringitis-mas-de-uno 1)
+  ?x3 <- (sintoma-faringitis-oral-pareja 1)
+=>
+  (assert (modulo-informacion))
+  (assert (faringitis-mala))
+  (retract ?ml)
+  (retract ?x)
+)
 
+(defrule exit-faringitis-normal-fallback
+  ?ml <- (modulo-faringitis)
+=>
+  (assert (modulo-informacion))
+  (assert (faringitis-normal))
+  (retract ?ml)
+)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
