@@ -92,13 +92,13 @@
 ;; @param $?qMID: List of possible user answers
 ;; @return ?answer: Variable with the user input text
 (deffunction ask-question (?qBEG $?qMID)
-
-	(printout t crlf ?qBEG crlf crlf)
+  (printout t crlf ?qBEG crlf crlf)
   (progn$ (?field $?qMID)
     (printout t "    "?field-index ") " ?field "." crlf))
   (printout t "Insert " ?*allowed-values* ": ")
 	(bind ?answer (read))
-	(while (not (member ?answer ?*allowed-values*)) do
+
+  (while (not (member ?answer ?*allowed-values*)) do
     (printout t crlf ?qBEG crlf crlf)
     (progn$ (?field $?qMID)
       (printout t "    "?field-index ") " ?field "." crlf))
@@ -112,18 +112,17 @@
 ;; @param $?qMID: List of possible user answers
 ;; @return ?answer: Variable with the user input text
 (deffunction ask-question1 (?qBEG $?qMID)
-
 	(printout t crlf ?qBEG crlf crlf)
   (progn$ (?field $?qMID)
     (printout t "    "?field-index ") " ?field "." crlf))
   (printout t "Insert " ?*question-11* ": ")
 	(bind ?answer (read))
   (assert (sintoma ?answer))
+
   (while (neq ?answer 4) do
     (printout t crlf ?qBEG crlf crlf)
     (progn$ (?field $?qMID)
-      (printout t "    "?field-index ") " ?field "." crlf)
-  )
+      (printout t "    "?field-index ") " ?field "." crlf))
     (printout t "Insert " ?*question-11* ": ")
     (bind ?answer (read))
     (assert (sintoma ?answer))
@@ -131,18 +130,17 @@
 ?answer)
 
 (deffunction ask-question12 (?qBEG $?qMID)
-
 	(printout t crlf ?qBEG crlf crlf)
   (progn$ (?field $?qMID)
     (printout t "    "?field-index ") " ?field "." crlf))
   (printout t "Insert " ?*question-12* ": ")
 	(bind ?answer (read))
   (assert (sintoma-inflamacion ?answer))
-	(while (neq ?answer 5) do
+
+  (while (neq ?answer 5) do
     (printout t crlf ?qBEG crlf crlf)
     (progn$ (?field $?qMID)
-      (printout t "    "?field-index ") " ?field "." crlf)
-  )
+      (printout t "    "?field-index ") " ?field "." crlf))
     (printout t "Insert " ?*question-12* ": ")
     (bind ?answer (read))
     (assert (sintoma-inflamacion ?answer))
@@ -158,11 +156,11 @@
 	=>
   (retract ?x)
 	(bind ?r (ask-question
-    "What happends to you?"
-    "I have an STD" ;; Module symtoms
-    "I think I may have an STD" ;; Module no-symtoms
-    "I would like to know more about STDs" ;; Module info
-    "Bye"))
+    "¿Qué te ocurre?"
+    "Tengo una ETS" ;; Module symtoms
+    "Creo que tengo una ETS" ;; Module no-symtoms
+    "Me gustaría obtener información sobre las EFT" ;; Module info
+    "Salir"))
   (assert (response ?r))
   (watch facts)
 )
@@ -203,14 +201,17 @@
 =>
   (bind ?r (ask-question12
       "Parece que presentas una infección, si presentas alguno de éstos síntomas, selecciónalos."
-      "fluido amarillento y/o maloliente"
-      "dolor anorectal y deseo de evacuar continuo"
-      "sangrado rectal"
-      "escozor y ardor tras en coito"
+      "Fluido amarillento y/o maloliente"
+      "Dolor anorectal y deseo de evacuar continuo"
+      "Sangrado rectal"
+      "Escozor y ardor tras en coito"
       "Terminar"
     ))
 )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;
+;;MODULO FARINGITIS    ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
