@@ -148,6 +148,29 @@
 	)
 ?answer)
 
+(deffunction ask-question31 (?qBEG $?qMID)
+	(printout t crlf ?qBEG crlf crlf)
+  (progn$ (?field $?qMID)
+    (printout t "    "?field-index ") " ?field "." crlf))
+  (printout t "Insert " ?*question-11* ": ")
+	(bind ?answer (read))
+  (if (member ?answer ?*question-11*)
+    then
+      (assert (sintoma-ulcera ?answer))
+  )
+  (while (neq ?answer 4) do
+    (printout t crlf ?qBEG crlf crlf)
+    (progn$ (?field $?qMID)
+      (printout t "    "?field-index ") " ?field "." crlf))
+    (printout t "Insert " ?*question-11* ": ")
+    (bind ?answer (read))
+    (if (member ?answer ?*question-11*)
+      then
+        (assert (sintoma-ulcera ?answer))
+    )
+	)
+?answer)
+
 (deffunction ask-yesno-question (?qBEG $?qMID)
 	(printout t crlf ?qBEG crlf crlf)
   (progn$ (?field $?qMID)
@@ -173,9 +196,9 @@
   (retract ?x)
 	(bind ?r (ask-question
     "¿Qué te ocurre?"
-    "Tengo una ETS" ;; Module symtoms
-    "Creo que tengo una ETS" ;; Module no-symtoms
-    "Me gustaría obtener información sobre las EFT" ;; Module info
+    "Creo que tengo una ETS, porque tengo síntomas"
+    "Creo que podría tener una ETS, pero no presento síntomas"
+    "Me gustaría obtener información sobre las ETS"
     "Salir"))
   (assert (response ?r))
   (watch facts)
@@ -187,29 +210,48 @@
 =>
   (bind ?r (ask-question1
     "Selecciona algunos de los siguiente síntomas"
+
     "Dolor/escozor al orinar o al tener relaciones"
     "Dolor de garganta"
-    "Algún tipo de erupción o berruga"
+    "Algún tipo de erupción/berruga/úlcera"
+
     "Terminar"
   ))
+  (retract ?x)
 )
+
+;;(defrule module12
+;;  ?x <- (response 2)
+;;=>
+;;
+;;  (retract ?x)
+;;)
+;;
+;;(defrule module13
+;;  ?x <- (response 3)
+;;=>
+;;  (retract ?x)
+;;)
 
 (defrule cambiar-a-inflamacion
   ?x <- (sintoma 1)
   =>
   (assert (modulo-inflamacion))
+  (retract ?x)
 )
 
 (defrule cambiar-a-faringitis
   ?x <- (sintoma 2)
   =>
   (assert (modulo-faringitis))
+  (retract ?x)
 )
 
 (defrule cambiar-a-ulcera
   ?x <- (sintoma 3)
   =>
   (assert (modulo-ulcera))
+  (retract ?x)
 )
 
 (defrule inflamaciones
@@ -225,6 +267,7 @@
 
       "Terminar"
     ))
+  (assert (modulo-informacion))
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -299,6 +342,25 @@
   (retract ?ml)
 )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;
+;;   MODULO ÚLCERA     ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;
+(defrule ulcera
+  (modulo-ulcera)
+=>
+  (bind ?r (ask-question31
+      "¿Presentas alguno de éstos síntomas?"
+
+      "Berruga en los genitales"
+      "Liendres o ladillas"
+      "Úlcera o erupción cutánea"
+
+      "Terminar"
+    ))
+  (assert (modulo-informacion))
+)
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
@@ -314,12 +376,18 @@
 (defrule uretritis
   ?x<- (sintoma-inflamacion 1)
 =>
-(assert(infouretritis))
+  (assert(infouretritis))
 )
 
 ;;;;;;;;;;;;;
 ;;PROCTITIS;;
 ;;;;;;;;;;;;;
+(defrule proctitis2
+  ?x <- (sintoma-inflamacion 2)
+  ?y <- (sintoma-inflamacion 3)
+=>
+  (assert(infoproctitis))
+)
 
 (defrule proctitis
 ?x<- (sintoma-inflamacion 2)
@@ -327,12 +395,6 @@
 (assert(infoproctitis))
 )
 
-(defrule proctitis2
-  ?x <- (sintoma-inflamacion 2)
-  ?y <- (sintoma-inflamacion 3)
-=>
-  (assert(infoproctitis))
-)
 
 ;;;;;;;;;;;;;
 ;;BALANITIS;;
