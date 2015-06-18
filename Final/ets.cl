@@ -351,7 +351,7 @@
   (bind ?r (ask-question31
       "¿Presentas alguno de éstos síntomas?"
 
-      "Berruga en los genitales"
+      "Verruga en los genitales"
       "Liendres o ladillas"
       "Úlcera o erupción cutánea"
 
@@ -361,7 +361,7 @@
 )
 
 (defrule ulcera1
-  (modulo-ulcera)
+  ?ml <- (modulo-ulcera)
   (sintoma-ulcera 1)
 =>
   (bind ?r (ask-yesno-question
@@ -371,10 +371,11 @@
     "Sí"
   ))
   (assert (sintoma-ulcera-riesgo ?r))
+  (retract ?ml)
 )
 
 (defrule ulcera2
-  (modulo-ulcera)
+  ?ml <- (modulo-ulcera)
   (sintoma-ulcera 2)
 =>
   (bind ?r (ask-yesno-question
@@ -384,10 +385,11 @@
     "Sí"
   ))
   (assert (sintoma-ulcera-liendre ?r))
+  (retract ?ml)
 )
 
 (defrule ulcera3
-  (modulo-ulcera)
+  ?ml <- (modulo-ulcera)
   (sintoma-ulcera 3)
 =>
   (bind ?r (ask-yesno-question
@@ -397,6 +399,7 @@
     "Sí"
   ))
   (assert (sintoma-ulcera-tropical ?r))
+  (retract ?ml)
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -583,27 +586,36 @@
   "El herpes es una infección causada por un virus herpes simple (VHS). El herpes bucal provoca llagas alrededor de la boca o en el rostro. El herpes genital es una enfermedad de transmisión sexual (ETS). Puede afectar los genitales, las nalgas o el área del ano. Otras infecciones por herpes pueden afectar los ojos, la piel u otras partes del cuerpo. El virus puede ser peligroso en recién nacidos o en personas con sistemas inmunes debilitados." crlf crlf)
 )
 
+(defrule INFORMAulcera
+  (infoUlceraMala)
+=>
+  (printout t
+    "Una causa común de las úlceras en los genitales masculinos son las infecciones de transmisión a través del contacto sexual, como por ejemplo:" crlf crlf
 
-
-
-
-
+    "   *) Herpes genital (ampollas pequeñas y dolorosas llenas de líquido claro o color paja)." crlf
+    "   *) Verrugas genitales (manchas de color carne que son elevadas o planas y pueden lucir como la parte superior de una coliflor)." crlf
+    "   *) Chancroide (una pequeña protuberancia en los genitales, que se convierte en una úlcera al cabo de un día de su aparición)." crlf
+    "   *) Sífilis (llaga o úlcera abierta pequeña e indolora, llamada chancro, en los genitales)." crlf
+    "   *) Granuloma inguinal (protuberancias pequeñas de color carne que aparecen en los genitales o alrededor del ano)." crlf
+    "   *) Linfogranuloma venéreo (pequeña llaga indolora en los genitales masculinos)." crlf crlf)
+)
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;;VERRUGAS NORMALES;;
 ;;;;;;;;;;;;;;;;;;;;;
-;(defrule INFORMABerrugaNormal
-;  ()
-;=>
-;(printout t "La verruga es una lesión cutánea causada por el virus ;del papiloma humano." crlf
-;"presentan una forma variable, llamativa y por lo general, de ;forma globular," crlf
-;"y pueden afectar a distintas zonas de la piel" crlf
-;)
-;)
 
-;; . Su extirpación no es fácil ya que las verrugas tienen su propio sistema de irrigación sanguínea que causan sangramientos abundantes cuando su extracción es por medios no clínicos; además pueden regenerarse con mayor virulencia. Adicionalmente compromete varios terminales nerviosos por lo que su extracción o manipulación causa gran dolor.
-;;
-;;Las verrugas pueden contraerse por contacto íntimo con personas afectadas por el virus del papiloma humano radicado en la zona genital y por transmisión consanguínea de portadores asintomáticos. El desarrollo de verrugas se favorece cuando hay fallos en el sistema inmunitario.
+(defrule INFORMAVerrugaNormal
+  (infoVerruga)
+=>
+  (printout t
+      "La verruga es una lesión cutánea causada por el virus del papiloma humano." crlf
+      "presentan una forma variable, llamativa y por lo general, de forma globular," crlf
+      "y pueden afectar a distintas zonas de la piel." crlf crlf
+      "Su extirpación no es fácil ya que las verrugas tienen su propio sistema de irrigación sanguínea que causan sangramientos abundantes cuando su extracción es por medios no clínicos; además pueden regenerarse con mayor virulencia. Adicionalmente compromete varios terminales nerviosos por lo que su extracción o manipulación causa gran dolor" crlf
+      "Pueden contraerse por contacto íntimo con personas afectadas por el virus del papiloma humano radicado en la zona genital y por transmisión consanguínea de portadores asintomáticos. El desarrollo de verrugas se favorece cuando hay fallos en el sistema inmunitario." crlf crlf
+      )
+)
+
 ;;
 ;;Dependiendo del serotipo del virus, la zona afectada es distinta:[cita requerida]
 ;;
@@ -614,14 +626,17 @@
 ;;    la zona ano-genital,
 ;;    las axilas, o cualquier otra parte del cuerpo.
 
-
-
-
 ;;;;;;;;;;;;;;;;;;;;
 ;; VERRUGAS FEAS  ;;
 ;;;;;;;;;;;;;;;;;;;;
 
-
+(defrule INFORMAVerrugaFea
+  (infoVerrugaMala)
+=>
+  (printout t "La verruga es una lesión cutánea causada por el virus ;del papiloma humano." crlf
+  "presentan una forma variable, llamativa y por lo general, de ;forma globular," crlf
+  "y pueden afectar a distintas zonas de la piel" crlf)
+)
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; ECTEROPARASITOSIS;;
