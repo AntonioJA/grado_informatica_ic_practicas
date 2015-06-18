@@ -663,6 +663,51 @@
     "   *) Granuloma inguinal (protuberancias pequeñas de color carne que aparecen en los genitales o alrededor del ano)." crlf
     "   *) Linfogranuloma venéreo (pequeña llaga indolora en los genitales masculinos)." crlf crlf)
 )
+
+;;;;;;;;;;;;;
+;; SIFILIS ;;
+;;;;;;;;;;;;;
+
+;;ROSEOLA
+(defrule INFORMAroseola
+    (sifilis-roseola)
+=>
+      (printout t
+      "Un tipo de sífilis secundaria es la ROSEOLA SIFÍLICA , que presenta una úlcera color rosa palido, generalmente en tronco y extremidades.
+      Es más común y precoz,y desaparece a las pocas semanas como maximo dos meses sin tratamiento." crlf crlf
+      )
+)
+
+;;PAPULOSO
+(defrule INFORMApapulosa
+    (sifilis-papulosa)
+=>
+    (printout t
+      "Un tipo de Sífilis secundaria es la SIFILIDES PAPULOSAS,que consiste en una  erupción cutánea  rojo oscuro que se presenta normalmente  en tronco y extremidaes, aunque mas en plantas y palmas." crlf crlf
+    )
+)
+
+;;CONDIMLOMAS
+defrule INFORMAcondimloma
+  (sifilis-condimlomas)
+
+=>
+  (printout t
+    "Un tipo de Sífilis secundaria son los CONDIMLOMAS PLANOS, que suelen aparecer a los 3-6 meses de la infeccion. Suelen ser planas  y color rojo oscuro. En zonas humedas, area genital, perineo, ingles, axilas y zonas de pliegues. " crlf crlf
+
+)
+)
+
+;;alopecia
+
+defrule INFORMAalopecia
+(sifilis-alopecia
+=>
+    (printout t
+      "Un tipo de Sífilis secundaria es la ALOPECIA SIFÍLICA.Se presenta como erupciones/ úlceras en cuero cabelludo, se manifiesta en forma de alopecia en placas." crlf crlf
+      )
+)
+
 ;;;;;;;;;;;;;;;;;;;;;
 ;;VERRUGAS NORMALES;;
 ;;;;;;;;;;;;;;;;;;;;;
