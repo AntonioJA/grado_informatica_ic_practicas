@@ -354,48 +354,50 @@
       "Berruga en los genitales"
       "Liendres o ladillas"
       "Úlcera o erupción cutánea"
+
       "Terminar"
     ))
-  (assert (modulo-informacion))
+    (assert (modulo-informacion))
 )
+
 (defrule ulcera1
   (modulo-ulcera)
+  (sintoma-ulcera 1)
 =>
-  (assert (modulo-informacion))
+  (bind ?r (ask-yesno-question
+    "¿Has tenido alguna relación de riesgo?"
+
+    "No"
+    "Sí"
+  ))
+  (assert (sintoma-ulcera-riesgo ?r))
 )
+
 (defrule ulcera2
   (modulo-ulcera)
+  (sintoma-ulcera 2)
 =>
-  (assert (modulo-informacion))
+  (bind ?r (ask-yesno-question
+    "¿Te pica?"
+
+    "No"
+    "Sí"
+  ))
+  (assert (sintoma-ulcera-liendre ?r))
 )
+
 (defrule ulcera3
   (modulo-ulcera)
+  (sintoma-ulcera 3)
 =>
-  (assert (modulo-informacion))
-)
-(defrule ulcera4
-  (modulo-ulcera)
-=>
-  (assert (modulo-informacion))
-)
-(defrule ulcera5
-  (modulo-ulcera)
-=>
-  (assert (modulo-informacion))
-)
-(defrule ulcera6
-  (modulo-ulcera)
-=>
-  (assert (modulo-informacion))
-)
-(defrule ulcera7
-  (modulo-ulcera)
-=>
-  (assert (modulo-informacion))
-)
+  (bind ?r (ask-yesno-question
+    "¿Has estado, os eres de un pais Tropical?"
 
-
-
+    "No"
+    "Sí"
+  ))
+  (assert (sintoma-ulcera-tropical ?r))
+)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
