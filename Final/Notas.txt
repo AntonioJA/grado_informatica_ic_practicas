@@ -33,7 +33,7 @@ http://es.euroclinix.net/que-hacer-con-ets.html
 *PROCTITIS->
 	- inflacación del recto
 	*- dolor anorectal
-	- tenesmo 
+	- tenesmo
 	*- sangrado
 	- extreñimiento o diarrea
 	- secreción de moco o pus
@@ -51,7 +51,7 @@ http://es.euroclinix.net/que-hacer-con-ets.html
 
 DESCARTARLAS ANTES FARINGITIS DE REPETICIÓN QUE NO EVOLUCIONAN FAVORABLEMENTE AL TRATAMIENTO
 
-*ÚLCERA GENITAL -> tipos GRANULOMA INGUINAL, CHANCRIOIDE, LINFOGRANULOMA VENÉREO, 
+*ÚLCERA GENITAL -> tipos GRANULOMA INGUINAL, CHANCRIOIDE, LINFOGRANULOMA VENÉREO,
 	- manifestaciones de una ITS(herpes simple y sífilis)
 	- generalmente países tropicales
 	*- tumor eruptivo que se convierte en púspula y luego en úlcera con una areola roja ,vascularizada,sensible y dolorosa. Pueden aparecer úlceras satélites.
@@ -104,18 +104,8 @@ El anexo VII (Pag 64) puede resultar útil
 
 - orientación sexual
 - contactos con más de x personas en x meses
-- has tenido sexo sin protección 
+- has tenido sexo sin protección
 - pareja infiel
 - drogas
 - alguna prueba anterior?
 - pareja positivo en alguna prueba?
-
-
-
-
-
-
-
-
-
-
