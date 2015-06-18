@@ -171,6 +171,29 @@
 	)
 ?answer)
 
+(deffunction ask-averigua-sifilis (?qBEG $?qMID)
+	(printout t crlf ?qBEG crlf crlf)
+  (progn$ (?field $?qMID)
+    (printout t "    "?field-index ") " ?field "." crlf))
+  (printout t "Insert " ?*question-12* ": ")
+	(bind ?answer (read))
+  (if (member ?answer ?*question-12*)
+    then
+      (assert (sintoma-sifilis ?answer))
+  )
+  (while (neq ?answer 5) do
+    (printout t crlf ?qBEG crlf crlf)
+    (progn$ (?field $?qMID)
+      (printout t "    "?field-index ") " ?field "." crlf))
+    (printout t "Insert " ?*question-12* ": ")
+    (bind ?answer (read))
+    (if (member ?answer ?*question-12*)
+      then
+        (assert (sintoma-sifilis ?answer))
+    )
+	)
+?answer)
+
 (deffunction ask-yesno-question (?qBEG $?qMID)
 	(printout t crlf ?qBEG crlf crlf)
   (progn$ (?field $?qMID)
@@ -415,9 +438,32 @@
 )
 
 (defrule ulceraMala
-(sintoma-ulcera-tropical 1 )
+  (sintoma-ulcera-tropical 1 )
 =>
-(assert(infoUlceraMala))
+  (assert(infoUlceraMala))
+)
+
+(defrule ulceraMalaTipo
+  (sintoma-ulcera-tropical 1)
+  (sintoma-ulcera 3)
+=>
+  (bind ?r (ask-averigua-sifilis
+    "¿De qué tipo es tu úlcera?"
+
+    "Color rosa-pálido"
+    "Rojo-oscuro en tronco, extremidades, planta o palmas"
+    "Rojo-oscuro, area genital, perineo, ingles, axilas, zonas húmedas o de pliegues"
+    "Caido del pelo por zonas"
+
+    "Terminar"
+  ))
+  (assert (averigua-sifilis))
+)
+
+(defrule sifilis1
+    (sintoma-sifilis 1)
+  =>
+    (assert (sifilis-roseola))
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
