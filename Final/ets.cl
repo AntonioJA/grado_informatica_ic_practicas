@@ -403,22 +403,42 @@
 ;; ULCERA GENITAL ;;
 ;;;;;;;;;;;;;;;;;;;;
 
+(defrule ulcera
+(sintoma-ulcera 1)
+(sintoma-ulcera-riesgo 0 )
+=>
+(assert(infoUlcera))
+)
 
+(defrule ulceraMala
+(sintoma-ulcera-riesgo 1 )
+=>
+(assert(infoUlceraMala))
+)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
-;; BERRUGAS GENITALES ;;
+;; VERRUGAS GENITALES ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;
-
+(defrule verrugas
+(sintoma-ulcera )
+=>
+(assert())
+)
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; ECTOPARASITOSIS ;;
 ;;;;;;;;;;;;;;;;;;;;;
 
-
+(defrule esteroparasitosis
+(sintoma-ulcera-liendre 1 )
+=>
+(assert(infoesteroparasitosis))
+)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;MODULO INFLAMACIONES ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 
 ;;;;;;;;;;;;;
@@ -551,8 +571,61 @@
 	     " o antisépticos chupados." crlf crlf
 ))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ULCERA NORMAL (HERPES)     ;;
+;;;;;;;;;;;;;;;,;;;;;;;;;;;;;;;;;
+defruleINFORMAherpes
+(infoUlcera)
+=>
+( printout t
+  "El herpes es una infección causada por un virus herpes simple (VHS). El herpes bucal provoca llagas alrededor de la boca o en el rostro. El herpes genital es una enfermedad de transmisión sexual (ETS). Puede afectar los genitales, las nalgas o el área del ano. Otras infecciones por herpes pueden afectar los ojos, la piel u otras partes del cuerpo. El virus puede ser peligroso en recién nacidos o en personas con sistemas inmunes debilitados." crlf crlf
+  ))
 
 
 
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;
+;;VERRUGAS NORMALES;;
+;;;;;;;;;;;;;;;;;;;;;
+(defrule INFORMABerrugaNormal
+()
+=>
+(printout t "La verruga es una lesión cutánea causada por el virus del papiloma humano." crlf
+"presentan una forma variable, llamativa y por lo general, de forma globular," crlf
+"y pueden afectar a distintas zonas de la piel" crlf
+)
+)
+
+;; . Su extirpación no es fácil ya que las verrugas tienen su propio sistema de irrigación sanguínea que causan sangramientos abundantes cuando su extracción es por medios no clínicos; además pueden regenerarse con mayor virulencia. Adicionalmente compromete varios terminales nerviosos por lo que su extracción o manipulación causa gran dolor.
+;;
+;;Las verrugas pueden contraerse por contacto íntimo con personas afectadas por el virus del papiloma humano radicado en la zona genital y por transmisión consanguínea de portadores asintomáticos. El desarrollo de verrugas se favorece cuando hay fallos en el sistema inmunitario.
+;;
+;;Dependiendo del serotipo del virus, la zona afectada es distinta:[cita requerida]
+;;
+;;    las manos,
+;;    la cara,
+;;    la nuca,
+;;    los pies,
+;;    la zona ano-genital,
+;;    las axilas, o cualquier otra parte del cuerpo.
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;
+;; VERRUGAS FEAS  ;;
+;;;;;;;;;;;;;;;;;;;;
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;
+;; ECTEROPARASITOSIS;;
+;;;;;;;;;;;;;;;;;;;;;;
+
+
+infoesteroparasitosis
 ;; Escribir en el menu varias posibles respuestas, en funcion de ellas, se ira preguntando sobre qué tipo de relación
 ;; ha tenido, y se irá saltando a los distintos modulos,  (Creo que un módulo por enfermedad estaria bien)
