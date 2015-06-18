@@ -465,6 +465,21 @@
   =>
     (assert (sifilis-roseola))
 )
+(defrule sifilis2
+    (sintoma-sifilis 2)
+  =>
+    (assert (sifilis-papulosa))
+)
+(defrule sifilis3
+    (sintoma-sifilis 3)
+  =>
+    (assert (sifilis-condimlomas))
+)
+(defrule sifilis4
+    (sintoma-sifilis 4)
+  =>
+    (assert (sifilis-alopecia))
+)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; VERRUGAS GENITALES ;;
@@ -696,9 +711,10 @@
 (defrule INFORMAVerrugaFea
   (infoVerrugaMala)
 =>
-  (printout t "La verruga es una lesión cutánea causada por el virus ;del papiloma humano." crlf
-  "presentan una forma variable, llamativa y por lo general, de ;forma globular," crlf
-  "y pueden afectar a distintas zonas de la piel" crlf)
+  (printout t
+    "La verruga es una lesión cutánea causada por el virus del papiloma humano." crlf
+    "presentan una forma variable, llamativa y por lo general, de forma globular," crlf
+    "y pueden afectar a distintas zonas de la piel" crlf)
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -706,6 +722,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 
 
-;;infoesteroparasitosis
-;; Escribir en el menu varias posibles respuestas, en funcion de ellas, se ira preguntando sobre qué tipo de relación
-;; ha tenido, y se irá saltando a los distintos modulos,  (Creo que un módulo por enfermedad estaria bien)
+(defrule INFORMAEctoparasitosis
+  (infoesteroparasitosis)
+=>
+  (printout t
+    "La ectoparasitosis es una dermatosis parasitaria (Los parasitos se deslizan por encima o debajo de la piel.)" crlf
+    "Se hallan muy extendidas por el mundo." crlf
+    "Son comunes en presonas que se encuentran en situaciones precarias" crlf crfl)
+)
