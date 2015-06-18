@@ -345,7 +345,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;   MODULO ÚLCERA     ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;
-(defrule ulcera
+(defrule ask-ulcera
   (modulo-ulcera)
 =>
   (bind ?r (ask-question31
@@ -406,10 +406,10 @@
 ;;;;;;;;;;;;;;;;;;;;
 
 (defrule ulcera
-(sintoma-ulcera 1)
-(sintoma-ulcera-riesgo 0 )
-=>
-(assert(infoUlcera))
+  (sintoma-ulcera 1)
+  (sintoma-ulcera-riesgo 0 )
+  =>
+  (assert(infoUlcera))
 )
 
 (defrule ulceraMala
@@ -421,11 +421,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; VERRUGAS GENITALES ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;
-(defrule verrugas
-(sintoma-ulcera )
-=>
-(assert())
-)
+;(defrule verrugas
+;(sintoma-ulcera )
+;=>
+;(assert())
+;)
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; ECTOPARASITOSIS ;;
@@ -576,12 +576,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ULCERA NORMAL (HERPES)     ;;
 ;;;;;;;;;;;;;;;,;;;;;;;;;;;;;;;;;
-defruleINFORMAherpes
-(infoUlcera)
+(defrule INFORMAherpes
+  (infoUlcera)
 =>
-( printout t
-  "El herpes es una infección causada por un virus herpes simple (VHS). El herpes bucal provoca llagas alrededor de la boca o en el rostro. El herpes genital es una enfermedad de transmisión sexual (ETS). Puede afectar los genitales, las nalgas o el área del ano. Otras infecciones por herpes pueden afectar los ojos, la piel u otras partes del cuerpo. El virus puede ser peligroso en recién nacidos o en personas con sistemas inmunes debilitados." crlf crlf
-  ))
+  ( printout t
+  "El herpes es una infección causada por un virus herpes simple (VHS). El herpes bucal provoca llagas alrededor de la boca o en el rostro. El herpes genital es una enfermedad de transmisión sexual (ETS). Puede afectar los genitales, las nalgas o el área del ano. Otras infecciones por herpes pueden afectar los ojos, la piel u otras partes del cuerpo. El virus puede ser peligroso en recién nacidos o en personas con sistemas inmunes debilitados." crlf crlf)
+)
 
 
 
@@ -592,14 +592,14 @@ defruleINFORMAherpes
 ;;;;;;;;;;;;;;;;;;;;;
 ;;VERRUGAS NORMALES;;
 ;;;;;;;;;;;;;;;;;;;;;
-(defrule INFORMABerrugaNormal
-()
-=>
-(printout t "La verruga es una lesión cutánea causada por el virus del papiloma humano." crlf
-"presentan una forma variable, llamativa y por lo general, de forma globular," crlf
-"y pueden afectar a distintas zonas de la piel" crlf
-)
-)
+;(defrule INFORMABerrugaNormal
+;  ()
+;=>
+;(printout t "La verruga es una lesión cutánea causada por el virus ;del papiloma humano." crlf
+;"presentan una forma variable, llamativa y por lo general, de ;forma globular," crlf
+;"y pueden afectar a distintas zonas de la piel" crlf
+;)
+;)
 
 ;; . Su extirpación no es fácil ya que las verrugas tienen su propio sistema de irrigación sanguínea que causan sangramientos abundantes cuando su extracción es por medios no clínicos; además pueden regenerarse con mayor virulencia. Adicionalmente compromete varios terminales nerviosos por lo que su extracción o manipulación causa gran dolor.
 ;;
@@ -628,6 +628,6 @@ defruleINFORMAherpes
 ;;;;;;;;;;;;;;;;;;;;;;
 
 
-infoesteroparasitosis
+;;infoesteroparasitosis
 ;; Escribir en el menu varias posibles respuestas, en funcion de ellas, se ira preguntando sobre qué tipo de relación
 ;; ha tenido, y se irá saltando a los distintos modulos,  (Creo que un módulo por enfermedad estaria bien)
