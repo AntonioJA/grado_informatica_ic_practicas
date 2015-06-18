@@ -406,14 +406,13 @@
 ;;;;;;;;;;;;;;;;;;;;
 
 (defrule ulcera
-  (sintoma-ulcera 1)
-  (sintoma-ulcera-riesgo 0 )
+  (sintoma-ulcera-tropical 0 )
   =>
   (assert(infoUlcera))
 )
 
 (defrule ulceraMala
-(sintoma-ulcera-riesgo 1 )
+(sintoma-ulcera-tropical 1 )
 =>
 (assert(infoUlceraMala))
 )
@@ -421,11 +420,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; VERRUGAS GENITALES ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;
-;(defrule verrugas
-;(sintoma-ulcera )
-;=>
-;(assert())
-;)
+(defrule verrugas
+(sintoma-ulcera-riesgo 1 )
+=>
+(assert(infoVerrugaMala))
+)
+
+(defrule verrugas
+(sintoma-ulcera-riesgo 0 )
+=>
+(assert(infoVerruga))
+)
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; ECTOPARASITOSIS ;;
@@ -435,6 +440,12 @@
 (sintoma-ulcera-liendre 1 )
 =>
 (assert(infoesteroparasitosis))
+)
+
+(defrule esteroparasitosis
+(sintoma-ulcera-liendre 1 )
+=>
+(assert(infoCostrasPrurito))
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -574,15 +585,30 @@
 ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ULCERA NORMAL (HERPES)     ;;
+;; ULCERA NORMAL (HERPES)      ;;
 ;;;;;;;;;;;;;;;,;;;;;;;;;;;;;;;;;
 (defrule INFORMAherpes
   (infoUlcera)
 =>
   ( printout t
-  "El herpes es una infección causada por un virus herpes simple (VHS). El herpes bucal provoca llagas alrededor de la boca o en el rostro. El herpes genital es una enfermedad de transmisión sexual (ETS). Puede afectar los genitales, las nalgas o el área del ano. Otras infecciones por herpes pueden afectar los ojos, la piel u otras partes del cuerpo. El virus puede ser peligroso en recién nacidos o en personas con sistemas inmunes debilitados." crlf crlf)
+  "El herpes es una infección causada por un virus herpes simple (VHS).
+   El herpes bucal provoca llagas alrededor de la boca o en el rostro.
+    El herpes genital es una enfermedad de transmisión sexual (ETS).
+     Puede afectar los genitales, las nalgas o el área del ano.
+     Otras infecciones por herpes pueden afectar los ojos, la piel u otras partes del cuerpo. El virus puede ser peligroso en recién nacidos o en personas con sistemas inmunes debilitados." crlf crlf)
 )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ULCERA FEA                  ;;
+;;;;;;;;;;;;;;;,;;;;;;;;;;;;;;;;;
+(defrule INFORMAulcera
+(infoUlceraMala)
+=>
+( printout t
+
+
+  )
+  )
 
 
 
