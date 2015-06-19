@@ -325,6 +325,12 @@
 (retract ?x)
 )
 
+(defrule creo-ets-varias-1
+  ?x <- (creo-ets 2)
+=>
+  (assert (creo-ets-varias 1))
+)
+
 (defruleETShetero
 ?x<-(creo-ets-varias-padecen 1)
 (creo-ets-varias-orientacion 1)
@@ -333,20 +339,15 @@
 (retract ?x)
 )
 
+
+
 (defruleETSgay
-?x<-(creo-ets-varias-padecen 1)
-(creo-ets-varias-orientacion 0)
+   ?x<-(creo-ets-varias-padecen 1)
+   (creo-ets-varias-orientacion 0)
 =>
-(assert (infoETSgay))
-(retract ?x)
+   (assert (infoETSgay))
+  (retract ?x)
 )
-
-
-;;(defrule creo-ets4
-;;  ?x <- (creo-ets 2)
-;;=>
-;;
-;;)
 
 ;;(defrule module13
 ;;  ?x <- (response 3)
