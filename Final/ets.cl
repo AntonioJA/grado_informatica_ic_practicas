@@ -320,6 +320,18 @@
   (retract ?x)
 )
 
+
+(defrule creo-ets4
+  ?x <- (creo-ets-varias-padecen 0)
+=>
+(printout t "Si has tenido una relación de riesgo, pero  tu pareja no
+            presenta una ETS y tú no presentas síntomas, puedes estar tranquilo,
+            SEGURAMENTE NO PADEZCAS NINGUNA ETS. Pero si buscas resultados
+            más empíricos, no dudes en consultar a tu médico."  crlf
+)
+  (retract ?x)
+)
+
 (defrule creo-preguntaorientacion
   (creo-ets-varias-padecen 1)
 =>
@@ -332,17 +344,8 @@
   (assert (creo-ets-varias-orientacion ?r))
 )
 
-(defrule creo-ets-pareja-infiel
-?x<-  (creo-ets-varias-padecen 0)
-=>
-(printout t "Si has tenido una relación de riesgo, pero  tu pareja no
-            presenta una ETS y tú no presentas síntomas, puedes estar tranquilo,
-            SEGURAMENTE NO PADEZCAS NINGUNA ETS. Pero si buscas resultados
-            más empíricos, no dudes en consultar a tu médico."  crlf
-)
-(retract ?x)
-)
 
+(defrule creoets-2
   ?x <- (creo-ets 2)
 =>
   (assert (creo-ets-varias 1))
@@ -380,23 +383,6 @@
   (assert (modulo-informacion))
 )
 
-(defrule creo-ets-info-inflamcion
-  ?x <- (creo-ets-info-enfermedad 1)
-=>
-  (assert (infobalanitis))
-  (assert (infoproctitis))
-  (assert (infouretritis))
-)
-
-(defruleETShetero
-?x<-(creo-ets-varias-padecen 1)
-(creo-ets-varias-orientacion 1)
-=>
-(assert (infoETShetero))
-(retract ?x)
-)
-
-
 (defrule creo-ets-info-ulcerosa
   ?x <- (creo-ets-info-enfermedad 2)
 =>
@@ -418,13 +404,32 @@
   (assert (infouretritis))
 )
 
-(defruleETSgay
+(defrule creo-ets-info-inflamcion
+  ?x <- (creo-ets-info-enfermedad 1)
+=>
+  (assert (infobalanitis))
+  (assert (infoproctitis))
+  (assert (infouretritis))
+)
+
+(defrule ETShetero
+  ?x<-(creo-ets-varias-padecen 1)
+  (creo-ets-varias-orientacion 1)
+=>
+  (assert (infoETShetero))
+  (retract ?x)
+)
+
+(defrule ETSgay
    ?x<-(creo-ets-varias-padecen 1)
    (creo-ets-varias-orientacion 0)
 =>
    (assert (infoETSgay))
   (retract ?x)
 )
+
+
+
 
 ;;(defrule module13
 ;;  ?x <- (response 3)
@@ -666,7 +671,7 @@
 (assert(infoVerrugaMala))
 )
 
-(defrule verrugas
+(defrule verrugas2
 (sintoma-ulcera-riesgo 0 )
 =>
 (assert(infoVerruga))
@@ -682,7 +687,7 @@
 (assert(infoesteroparasitosis))
 )
 
-(defrule esteroparasitosis
+(defrule esteroparasitosis2
 (sintoma-ulcera-liendre 1 )
 =>
 (assert(infoCostrasPrurito))
