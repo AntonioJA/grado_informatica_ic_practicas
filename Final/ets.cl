@@ -295,6 +295,13 @@
   (retract ?x)
 )
 
+(defrule informaPAciente
+  ?x <- (response 3)
+=>
+  (assert (quiere-info))
+  (retract ?x)
+)
+
 (defrule creo-preguntavarias
   (creo-ets 1)
 =>
@@ -375,6 +382,20 @@
   tu médico para hacerte pruebas." crlf crlf)
 )
 
+(defrule InformaETSs
+  (quiere-info)
+=>
+  (bind ?r (ask-question-enfermedad-pareja
+    "¿Sobre qué tipo de enfermedades de ETSs quieres información?"
+
+    "Inflamatorias"
+    "Úlcerosas"
+    "Faríngeas"
+
+    "Terminar"
+  ))
+  (assert (modulo-informacion))
+)
 
 (defrule creo-ets-sobre-que-ha-dado-positivo
   (creo-ets-pareja-positivo 1)
