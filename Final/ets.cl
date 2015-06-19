@@ -371,7 +371,7 @@
 (defrule creo-ets-pareja-negativo
   (creo-ets-pareja-positivo 0)
 =>
-  (prinout t "Dadas tus circunstancias, ya que no te has hecho pruebas de ETS, pero tu pareja ha dado positivo, es aconsejable que vayas a hablar con
+  (printout t "Dadas tus circunstancias, ya que no te has hecho pruebas de ETS, pero tu pareja ha dado positivo, es aconsejable que vayas a hablar con
   tu médico para hacerte pruebas." crlf crlf)
 )
 
@@ -415,9 +415,8 @@
 (defrule creo-ets-info-faringea
   ?x <- (creo-ets-info-enfermedad 3)
 =>
-  (assert (infobalanitis))
-  (assert (infoproctitis))
-  (assert (infouretritis))
+  (assert (faringitis-mala))
+  (assert (faringitis-normal))
 )
 
 
@@ -977,7 +976,7 @@ Sin embargo, si estás seguro de no presentar síntoma alguno, deberías estar t
 Algunas de las ETS más frecuentes en varones homosexuales, son:" crlf)
 (assert (infoproctitis))
 (assert (infobalanitis))
-(assert (INFORMAfaringitisMala))
+(assert (faringitis-mala))
 )
 
 (defrule INFORMAetshetero
