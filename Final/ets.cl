@@ -210,13 +210,13 @@
 	)
 ?answer)
 
-(deffunction ask-question-think-ets (?qBEG $?qMID)
+(deffunction ask-question-creo-ets (?qBEG $?qMID)
 	(printout t crlf ?qBEG crlf crlf)
   (progn$ (?field $?qMID)
     (printout t "    "?field-index ") " ?field "." crlf))
   (printout t "Insert " ?*question-11* ": ")
 	(bind ?answer (read))
-  (assert (think-ets ?answer))
+  (assert (creo-ets ?answer))
 
   (while (neq ?answer 4) do
     (printout t crlf ?qBEG crlf crlf)
@@ -224,7 +224,7 @@
       (printout t "    "?field-index ") " ?field "." crlf))
     (printout t "Insert " ?*question-11* ": ")
     (bind ?answer (read))
-    (assert (think-ets ?answer))
+    (assert (creo-ets ?answer))
 	)
 ?answer)
 ;;;;;;;;;;;;;;;;;
@@ -264,7 +264,7 @@
 (defrule module12
   ?x <- (response 2)
 =>
-  (bind ?r (ask-question-think-ets
+  (bind ?r (ask-question-creo-ets
     "¿Por qué crees que tienes una ETS?"
 
     "He tenido una relación de riesgo, o sexo sin protección."
@@ -274,6 +274,44 @@
     "Terminar"
   ))
 
+  (retract ?x)
+)
+
+(defrule creo-ets1
+  (creo-ets 1)
+=>
+(bind ?r (ask-yesno-question
+    "¿Con varias personas o con tu pareja?"
+
+    "Sí"
+    "No"
+  ))
+  (assert (creo-ets-varias ?r))
+)
+
+(defrule creo-ets2
+  ?x <- (creo-ets-varias ?y)
+=>
+(bind ?r (ask-yesno-question
+    "¿Crees que algunas de ellas puede padecer una ETS?"
+
+    "Sí"
+    "No"
+  ))
+  (assert (creo-ets-varias-padecen ?r))
+  (retract ?x)
+)
+
+(defrule creo-ets2
+  (creo-ets-varias-padecen ?x)
+=>
+(bind ?r (ask-yesno-question
+    "¿Cual es tu orientación sexual?"
+
+    "Hetero"
+    "Homosexual"
+  ))
+  (assert (creo-ets-varias-orientacion ?r))
   (retract ?x)
 )
 
