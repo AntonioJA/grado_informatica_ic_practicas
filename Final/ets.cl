@@ -209,6 +209,24 @@
     (bind ?answer (read))
 	)
 ?answer)
+
+(deffunction ask-question-think-ets (?qBEG $?qMID)
+	(printout t crlf ?qBEG crlf crlf)
+  (progn$ (?field $?qMID)
+    (printout t "    "?field-index ") " ?field "." crlf))
+  (printout t "Insert " ?*question-11* ": ")
+	(bind ?answer (read))
+  (assert (think-ets ?answer))
+
+  (while (neq ?answer 4) do
+    (printout t crlf ?qBEG crlf crlf)
+    (progn$ (?field $?qMID)
+      (printout t "    "?field-index ") " ?field "." crlf))
+    (printout t "Insert " ?*question-11* ": ")
+    (bind ?answer (read))
+    (assert (think-ets ?answer))
+	)
+?answer)
 ;;;;;;;;;;;;;;;;;
 ;; Main Module ;;
 ;;;;;;;;;;;;;;;;;
@@ -243,13 +261,22 @@
   (retract ?x)
 )
 
-;;(defrule module12
-;;  ?x <- (response 2)
-;;=>
-;;
-;;  (retract ?x)
-;;)
-;;
+(defrule module12
+  ?x <- (response 2)
+=>
+  (bind ?r (ask-question-think-ets
+    "¿Por qué crees que tienes una ETS?"
+
+    "He tenido una relación de riesgo, o sexo sin protección."
+    "Creo que mi pareja me está siendo infiel."
+    "Mi pareja ha dado positivo en una ETS."
+
+    "Terminar"
+  ))
+
+  (retract ?x)
+)
+
 ;;(defrule module13
 ;;  ?x <- (response 3)
 ;;=>
@@ -703,7 +730,7 @@
 )
 
 ;;CONDIMLOMAS
-defrule INFORMAcondimloma
+(defrule INFORMAcondimloma
   (sifilis-condimlomas)
 
 =>
@@ -715,8 +742,8 @@ defrule INFORMAcondimloma
 
 ;;alopecia
 
-defrule INFORMAalopecia
-(sifilis-alopecia
+(defrule INFORMAalopecia
+  (sifilis-alopecia)
 =>
     (printout t
       "Un tipo de Sífilis secundaria es la ALOPECIA SIFÍLICA.Se presenta como erupciones/ úlceras en cuero cabelludo, se manifiesta en forma de alopecia en placas." crlf crlf
