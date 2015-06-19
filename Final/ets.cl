@@ -368,6 +368,14 @@
   (retract ?x)
 )
 
+(defrule creo-ets-pareja-negativo
+  (creo-ets-pareja-positivo 0)
+=>
+  (prinout t "Dadas tus circunstancias, ya que no te has hecho pruebas de ETS, pero tu pareja ha dado positivo, es aconsejable que vayas a hablar con
+  tu médico para hacerte pruebas." crlf crlf)
+)
+
+
 (defrule creo-ets-sobre-que-ha-dado-positivo
   (creo-ets-pareja-positivo 1)
 =>
