@@ -303,7 +303,7 @@
 )
 
 (defrule creo-ets3
-  (creo-ets-varias-padecen ?x)
+  (creo-ets-varias-padecen 1)
 =>
 (bind ?r (ask-yesno-question
     "¿Cual es tu orientación sexual?"
@@ -314,10 +314,16 @@
   (assert (creo-ets-varias-orientacion ?r))
 )
 
-(defrule creo-ets4
+(defrule creo-ets-varias-1
   ?x <- (creo-ets 2)
 =>
   (assert (creo-ets-varias 1))
+)
+
+(defrule creo-ets-hereto
+   (creo-ets-varias-orientacion 0)
+=>
+   (assert infoETShetero)
 )
 
 ;;(defrule module13
@@ -845,3 +851,5 @@
     "Se hallan muy extendidas por el mundo." crlf
     "Son comunes en presonas que se encuentran en situaciones precarias" crlf crfl)
 )
+
+;;;;; no tiene sintomas pero relación de riesgo y
