@@ -383,6 +383,14 @@
   (assert (modulo-informacion))
 )
 
+(defrule creo-ets-info-inflamcion
+  ?x <- (creo-ets-info-enfermedad 1)
+=>
+  (assert (infobalanitis))
+  (assert (infoproctitis))
+  (assert (infouretritis))
+)
+
 (defrule creo-ets-info-ulcerosa
   ?x <- (creo-ets-info-enfermedad 2)
 =>
@@ -404,13 +412,8 @@
   (assert (infouretritis))
 )
 
-(defrule creo-ets-info-inflamcion
-  ?x <- (creo-ets-info-enfermedad 1)
-=>
-  (assert (infobalanitis))
-  (assert (infoproctitis))
-  (assert (infouretritis))
-)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defrule ETShetero
   ?x<-(creo-ets-varias-padecen 1)
@@ -606,7 +609,6 @@
   (retract ?ml)
 )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; ULCERA GENITAL ;;
