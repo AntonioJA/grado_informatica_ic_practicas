@@ -227,6 +227,24 @@
     (assert (creo-ets ?answer))
 	)
 ?answer)
+
+(deffunction ask-question-enfermedad-pareja (?qBEG $?qMID)
+	(printout t crlf ?qBEG crlf crlf)
+  (progn$ (?field $?qMID)
+    (printout t "    "?field-index ") " ?field "." crlf))
+  (printout t "Insert " ?*question-11* ": ")
+	(bind ?answer (read))
+  (assert (creo-ets-info-enfermedad ?answer))
+  (while (neq ?answer 4) do
+    (printout t crlf ?qBEG crlf crlf)
+    (progn$ (?field $?qMID)
+      (printout t "    "?field-index ") " ?field "." crlf))
+    (printout t "Insert " ?*question-11* ": ")
+    (bind ?answer (read))
+    (assert (creo-ets-info-enfermedad ?answer))
+	)
+?answer)
+
 ;;;;;;;;;;;;;;;;;
 ;; Main Module ;;
 ;;;;;;;;;;;;;;;;;
@@ -277,53 +295,114 @@
   (retract ?x)
 )
 
-(defrule creo-ets1
+(defrule creo-preguntavarias
   (creo-ets 1)
 =>
 (bind ?r (ask-yesno-question
     "¿Con varias personas o con tu pareja?"
 
-    "Sí"
     "No"
+    "Sí"
   ))
   (assert (creo-ets-varias ?r))
 )
 
-(defrule creo-ets2
+(defrule creo-puedenpadecer
   ?x <- (creo-ets-varias ?y)
 =>
 (bind ?r (ask-yesno-question
     "¿Crees que algunas de ellas puede padecer una ETS?"
 
-    "Sí"
     "No"
+    "Sí"
   ))
   (assert (creo-ets-varias-padecen ?r))
   (retract ?x)
 )
 
-(defrule creo-ets3
+(defrule creo-preguntaorientacion
   (creo-ets-varias-padecen 1)
 =>
-(bind ?r (ask-yesno-question
-    "¿Cual es tu orientación sexual?"
+  (bind ?r (ask-yesno-question
+      "¿Cual es tu orientación sexual?"
 
-    "Hetero"
-    "Homosexual"
+      "Hetero"
+      "Homosexual"
   ))
   (assert (creo-ets-varias-orientacion ?r))
 )
 
-(defrule creo-ets-varias-1
+(defrule creo-ets-pareja-infiel
   ?x <- (creo-ets 2)
 =>
   (assert (creo-ets-varias 1))
+  (retract ?x)
+)
+
+;; Te has hecho pruebas y has dado positivo? si: mostrar supongo que ya sabras lo que tienes, y me voy a InvoUretritis etc, todass
+;; no: Le pregunto por orientacion, asertar, creoetsvariaspadecen
+
+(defrule creo-ets-pareja-positivo
+  ?x <- (creo-ets 3)
+=>
+  (bind ?r (ask-yesno-question
+      "¿Te has hecho pruebas y has dado positivo?"
+
+      "No"
+      "Sí"
+  ))
+  (assert (creo-ets-pareja-positivo ?r))
+  (retract ?x)
+)
+
+(defrule creo-ets-sobre-que-ha-dado-positivo
+  (creo-ets-pareja-positivo 1)
+=>
+  (bind ?r (ask-question-enfermedad-pareja
+    "¿En qué tipo de enfermedad ha dado positivo tu pareja?"
+
+    "Inflamatoria"
+    "Úlcerosa"
+    "Faríngea"
+
+    "Terminar"
+  ))
+  (assert (modulo-informacion))
+)
+
+(defrule creo-ets-info-inflamcion
+  ?x <- (creo-ets-info-enfermedad 1)
+=>
+  (assert (infobalanitis))
+  (assert (infoproctitis))
+  (assert (infouretritis))
+)
+
+(defrule creo-ets-info-ulcerosa
+  ?x <- (creo-ets-info-enfermedad 2)
+=>
+  (assert (infoUlcera))
+  (assert (infoUlceraMala))
+  (assert (infoVerruga))
+  (assert (infoVerrugaMala))
+  (assert (sifilis-roseola))
+  (assert (sifilis-papulosa))
+  (assert (sifilis-condimlomas))
+  (assert (sifilis-alopecia))
+)
+
+(defrule creo-ets-info-faringea
+  ?x <- (creo-ets-info-enfermedad 3)
+=>
+  (assert (infobalanitis))
+  (assert (infoproctitis))
+  (assert (infouretritis))
 )
 
 (defrule creo-ets-hereto
    (creo-ets-varias-orientacion 0)
 =>
-   (assert infoETShetero)
+   (assert (infoETShetero))
 )
 
 ;;(defrule module13
