@@ -314,11 +314,11 @@
   (assert (creo-ets-varias-orientacion ?r))
 )
 
-;;(defrule creo-ets4
-;;  ?x <- (creo-ets 2)
-;;=>
-;;
-;;)
+(defrule creo-ets4
+  ?x <- (creo-ets 2)
+=>
+  (assert (creo-ets-varias 1))
+)
 
 ;;(defrule module13
 ;;  ?x <- (response 3)
