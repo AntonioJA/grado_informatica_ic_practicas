@@ -302,7 +302,7 @@
   (retract ?x)
 )
 
-(defrule creo-ets2
+(defrule creo-ets3
   (creo-ets-varias-padecen ?x)
 =>
 (bind ?r (ask-yesno-question
@@ -312,8 +312,13 @@
     "Homosexual"
   ))
   (assert (creo-ets-varias-orientacion ?r))
-  (retract ?x)
 )
+
+;;(defrule creo-ets4
+;;  ?x <- (creo-ets 2)
+;;=>
+;;
+;;)
 
 ;;(defrule module13
 ;;  ?x <- (response 3)
