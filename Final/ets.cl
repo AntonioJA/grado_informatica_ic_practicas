@@ -260,7 +260,7 @@
     "Me gustaría obtener información sobre las ETS"
     "Salir"))
   (assert (response ?r))
-  (watch facts)
+  ;;(watch facts)
 )
 
 ;; Asks for main sytoms of STDs
@@ -301,8 +301,8 @@
 (bind ?r (ask-yesno-question
     "¿Con varias personas o con tu pareja?"
 
-    "No"
-    "Sí"
+    "Una"
+    "Varias"
   ))
   (assert (creo-ets-varias ?r))
 )
@@ -338,8 +338,8 @@
   (bind ?r (ask-yesno-question
       "¿Cual es tu orientación sexual?"
 
-      "Hetero"
       "Homosexual"
+      "Hetero"
   ))
   (assert (creo-ets-varias-orientacion ?r))
 )
@@ -986,5 +986,5 @@ Algunas de las ETS más frecuentes en varones homosexuales, son:" crlf)
 Sin embargo, si estás seguro de no presentar síntoma alguno, deberías estar tranquilo, pues rara vez una ETS es asintomática.
 de todas formas, puedes indicar a continuación, si lo deseas, el tipo de ETS es en la que ha dado positivo tu pareja, para orientarte mejor en ese tipo de ETS:
 " crlf)
-(assert (creo-ets-varias-padecen 1))
+(assert (creo-ets-pareja-positivo 1))
 )
