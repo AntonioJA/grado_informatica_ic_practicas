@@ -314,20 +314,34 @@
   (assert (creo-ets-varias-orientacion ?r))
 )
 
+(defrule creo-ets4
+?x<-  (creo-ets-varias-padecen 0)
+=>
+(printout t "Si has tenido una relación de riesgo, pero  tu pareja no
+            presenta una ETS y tú no presentas síntomas, puedes estar tranquilo,
+            SEGURAMENTE NO PADEZCAS NINGUNA ETS. Pero si buscas resultados
+            más empíricos, no dudes en consultar a tu médico."  crlf
+)
+(retract ?x)
+)
 
-
-
-
-
-
-
-
-(defrule
-;(creo-ets-varias-padecen ?x)
+(defruleETShetero
+?x<-(creo-ets-varias-padecen 1)
 (creo-ets-varias-orientacion 1)
 =>
-(assert infoETShetero)
-  )
+(assert (infoETShetero))
+(retract ?x)
+)
+
+(defruleETSgay
+?x<-(creo-ets-varias-padecen 1)
+(creo-ets-varias-orientacion 0)
+=>
+(assert (infoETSgay))
+(retract ?x)
+)
+
+
 ;;(defrule creo-ets4
 ;;  ?x <- (creo-ets 2)
 ;;=>
@@ -500,7 +514,7 @@
   (sintoma-ulcera 3)
 =>
   (bind ?r (ask-yesno-question
-    "¿Has estado, os eres de un pais Tropical?"
+    "¿Has estado, o eres de un pais Tropical?"
 
     "No"
     "Sí"
@@ -860,4 +874,25 @@
     "Son comunes en presonas que se encuentran en situaciones precarias" crlf crfl)
 )
 
-;;;;; no tiene sintomas pero relación de riesgo y
+;;;;; no tiene sintomas pero relación de riesgo y pareja ha dado positivo en ETS ;;;;
+
+(defrule INFORMAetsgays
+(infoETSgay)
+=>
+(printout t "Teniendo en cuenta tus prácticas homosexuales, que has tenido relaciones de riesgo, y que tu pareja ha dado positivo en alguna prueba, deberías acudir a tu médico a hacerte pruebas.
+Sin embargo, si estás seguro de no presentar síntoma alguno, deberías estar tranquilo, pues rara vez una ETS es asintomática.
+Algunas de las ETS más frecuentes en varones homosexuales, son:" crlf)
+(assert (infoproctitis))
+(assert (infobalanitis))
+(assert (INFORMAfaringitisMala))
+)
+
+(defrule INFORMAetshetero
+(infoETShetero)
+=>
+(printout t "Teniendo en cuenta tus prácticas heterosexuales, que has tenido relaciones de riesgo, y que tu pareja ha dado positivo en alguna prueba, deberías acudir a tu médico a hacerte pruebas.
+Sin embargo, si estás seguro de no presentar síntoma alguno, deberías estar tranquilo, pues rara vez una ETS es asintomática.
+de todas formas, puedes indicar a continuación, si lo deseas, el tipo de ETS es en la que ha dado positivo tu pareja, para orientarte mejor en ese tipo de ETS:
+" crlf)
+(assert (creo-ets-varias-padecen 1))
+)
