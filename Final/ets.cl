@@ -1,87 +1,5 @@
 ;; Expert system to inform users about STDs
 
-;; Templates
-(deftemplate std "Template representing a STD"
-    (slot std-name)
-    (slot std-symtom)
-    (slot std-symtom-where)
-)
-
-;; Facts
-(deffacts Kwnoledge
-  (std
-    (std-name uretritis) (std-symtom inflamacion) )
-  (std
-    (std-name uretritis) (std-symtom coagulo) )
-  (std
-    (std-name uretritis) (std-symtom calculos) )
-  (std
-    (std-name uretritis) (std-symtom fluido) )
-  (std
-    (std-name uretritis) (std-symtom dolor-testiculos) )
-
-  (std
-    (std-name proctitis) (std-symtom inflamacion-recto) )
-  (std
-    (std-name proctitis) (std-symtom dolor-anorectal) )
-  (std
-    (std-name proctitis) (std-symtom sangrado) )
-  (std
-    (std-name proctitis) (std-symtom extrenimiento) )
-  (std
-    (std-name proctitis) (std-symtom pus) )
-
-  (std
-    (std-name balanitis) (std-symtom ardor) )
-  (std
-    (std-name balanitis) (std-symtom infeccion) )
-
-  (std
-    (std-name infec-faringeas) (std-symtom dolor-garganta) )
-  (std
-    (std-name infec-faringeas) (std-symtom inflamacion-ganglios-linf) )
-
-  (std
-    (std-name balanitis) (std-symtom candidas) )
-  (std
-    (std-name balanitis) (std-symtom prurito) )
-  (std
-    (std-name balanitis) (std-symtom ardor) )
-
-  (std
-    (std-name faringeas) (std-symtom dolor-garganta) )
-  (std
-    (std-name faringeas) (std-symtom inflamacion-ganglios-linf) )
-
-  (std
-    (std-name ulcera-genital) (std-symtom inflamacion-ganglios-ingles) )
-
-   (std
-    (std-name ulcera-genital) (std-symtom erupcion-pustula) )
-
-  ;; Need more info.
-  ;(std
-  ;  (std-name verruga-genital) (std-symtom ) )
-
-  (std
-    (std-name ectoparasitosis) (std-symtom macula-roja) )
-  (std
-    (std-name ectoparasitosis) (std-symtom liendres-ladillas) )
-
-  ;; Sífilis prematura
-  (std
-    (std-name sifilis) (std-symtom ulcera) )
-  ;;Sífilis secundaria
-  (std
-    (std-name sifilis) (std-symtom roseola-rosa-palida-tronco) )
-  (std
-    (std-name sifilis) (std-symtom rojo-oscuro-platas) )
-  (std
-    (std-name sifilis) (std-symtom rojo-oscuro-zona-humeda) )
-  (std
-    (std-name sifilis) (std-symtom alopecia) )
-)
-
 ;;; Global Variables
 (defglobal ?*allowed-values* = (create$ 1 2 3))
 (defglobal ?*question-11* = (create$ 1 2 3 4))
@@ -108,10 +26,6 @@
 	)
 ?answer)
 
-;; Function used to ask questions to the user
-;; @param ?qBEG: First part of the question
-;; @param $?qMID: List of possible user answers
-;; @return ?answer: Variable with the user input text
 (deffunction ask-question1 (?qBEG $?qMID)
 	(printout t crlf ?qBEG crlf crlf)
   (progn$ (?field $?qMID)
@@ -265,24 +179,26 @@
 ;;;;;;;;;;;;;;;;;
 ;; Main Module ;;
 ;;;;;;;;;;;;;;;;;
-;; The first thing we are going to do is ask the user who thinks he has.
-(defrule firstQuestion
+;; Lo primero que hacemos es preguntar al usuario
+(defrule que-te-ocurre
   ?x <- (initial-fact)
 	=>
   (retract ?x)
 	(bind ?r (ask-question
     "¿Qué te ocurre?"
+
     "Creo que tengo una ETS, porque tengo síntomas"
     "Creo que podría tener una ETS, pero no presento síntomas"
     "Me gustaría obtener información sobre las ETS"
+
     "Salir"))
-  (assert (response ?r))
+  (assert (respuesta ?r))
   (watch facts)
 )
 
 ;; Asks for main sytoms of STDs
-(defrule module11
-  ?x <- (response 1)
+(defrule tipo-usuario-uno
+  ?x <- (respuesta 1)
 =>
   (bind ?r (ask-question1
     "Selecciona algunos de los siguiente síntomas"
@@ -296,8 +212,8 @@
   (retract ?x)
 )
 
-(defrule module12
-  ?x <- (response 2)
+(defrule tipo-usuario-dos
+  ?x <- (respuesta 2)
 =>
   (bind ?r (ask-question-creo-ets
     "¿Por qué crees que tienes una ETS?"
@@ -312,8 +228,8 @@
   (retract ?x)
 )
 
-(defrule informaPAciente
-  ?x <- (response 3)
+(defrule tipo-usuario-tres
+  ?x <- (respuesta 3)
 =>
   (assert (quiere-info))
   (retract ?x)
@@ -480,7 +396,7 @@
 
 
 ;;(defrule module13
-;;  ?x <- (response 3)
+;;  ?x <- (respuesta 3)
 ;;=>
 ;;  (retract ?x)
 ;;)
