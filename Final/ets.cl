@@ -510,9 +510,9 @@
   (retract ?ml)
 )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;
-;;   MODULO ÚLCERA     ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+;;   MODULO ÚLCERA    ;;
+;;;;;;;;;;;;;;;;;;;;;;;;
 (defrule ask-ulcera
   (modulo-ulcera)
 =>
@@ -651,7 +651,7 @@
 )
 
 (defrule esteroparasitosis2
-(sintoma-ulcera-liendre 1 )
+(sintoma-ulcera-liendre 0 )
 =>
 (assert(infoCostrasPrurito))
 )
@@ -975,6 +975,17 @@
     "La ectoparasitosis es una dermatosis parasitaria (Los parasitos se deslizan por encima o debajo de la piel.)" crlf
     "Se hallan muy extendidas por el mundo." crlf
     "Son comunes en presonas que se encuentran en situaciones precarias" crlf crfl)
+)
+
+(defrule INFORMAPrurito
+  (infoCostrasPrurito)
+=>
+  (printout t
+    ";;;;;;;;;;;;;;;;;;;;;;" crlf
+    ";;      Prurito     ;;" crlf
+    ";;;;;;;;;;;;;;;;;;;;;;" crlf crlf
+
+    "Si tienes picor, pero no parásitos, lo más probable es que no padezcas de liendres, ni una ETS. Sin embargo, puedes consultar con tu médico.") crlf crlf
 )
 
 ;;;;; no tiene sintomas pero relación de riesgo y pareja ha dado positivo en ETS ;;;;

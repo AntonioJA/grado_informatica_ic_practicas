@@ -4,12 +4,43 @@
 
 \section{Esquema de razonamiento}\index{Esquema de razonamiento}
 
+Se distinguen tres tipos de usuarios. Alguien que viene convencido de que tiene una ETS, ya que presenta síntomas. Otro tipo de usuario, piensa que podría tener una ETS, debido a que ha tenido una relación de riesgo, o alguien con quién ha estado ha dado positivo en alguna prueba. Por último, un usuario que desee informarse sobre los tipos de ETSs y sus síntomas. A partir de ahora nos referiremos a los tipos de usuario como \textbf{Tipo 1, Tipo 2} y \textbf{Tipo 3}, respectivamente.
+
+En función de qué tipo de usuario esté interactuando con el sistema, se ejecutarán unas reglas u otras. A continuación se describe brevemente el razonamiento que se segurá para cada usuario.
+
+Si el sistema se encuentra ante un usuario de tipo 1, se le preguntará por qué síntomas presenta. En función de su respuesta, se investigará qué tipo de enfermedad puede tener, inflamatoria, ulcerosa o faríngea. \\
+Si el usuario es de tipo 2, el sistema intentará investigar qué tipo de enfermedad puede tener, en caso de padecer alguna, o tranquilizar al usuario en base a sus respuestas.\\
+Por último, un usuario de tipo 3 interactuará con el sistema con el único fin de obtener información acerca de las distintas ETSs existentes.
+
 \section{Reglas indicadas en mi función como experto}\index{reglas}
 
-This statement requires citation \cite{book_key}; this one is more specific \cite[122]{article_key}.
+Empezaremos describiendo las reglas para la faringitis.\index{reglas!faringitis}.
 
-Lists are useful to present information in a concise and/or ordered way\footnote{Footnote example...}.
+Hay varios aspectos a la hora de detectar si una faringitis viene dada como consecuencia de una ETS, o simplemente es una faringitis de tipo normal. Para intentar diferenciarlas, se harán una serie de preguntas al usuario. Por ejemplo:
+\begin{itemize}
+  \item Si ha practicado sexo oral, con una o varias personas y alguna de ellas ha dado positivo en alguna ETS, es probable que los síntomas de su faringitis vengan dados por una ETS. De lo contrario, lo más probable es que padezca una faringitis de repetición (Una faringitis normal).
+\end{itemize}
 
-\subsection{Numbered List}\index{Lists!Numbered List}
-\subsection{Bullet Points}\index{Lists!Bullet Points}
-\subsection{Descriptions and Definitions}\index{Lists!Descriptions and Definitions}
+Para el caso de las úlceras\index{reglas!úlceras} hay que contemplar varios aspectos.
+\begin{itemize}
+  \item Lás úlceras graves son más probables de transmitirse en paises tropicales. Por tanto, si el usuario no ha estado en contacto con una persona de esos paieses, o no los ha frecuentado, es poco probable que se haya contagiado.
+  \item Para contemplar la sífilis, en caso de que se haya estado en contacto con alguien de paises tropicales, o en paieses tropicales, las reglas son las siguientes:
+  \begin{itemize}
+    \item Si tiene una úlcera color rosa pálido, es probable que tenga Roseola Sifílica, un tipo de sífiles secundaria, de las más comunes y precoces.
+    \item Si tiene una úlcera color rojo oscuro, en el tronco o extremidades, planta o palma, lo más probable es que padezca Sifilides Papulosa, otro tipo de sífilis secundaria.
+    \item Si tiene una úlcera roja oscura, pero en el area genital, perineo, ingles, axilas, o zonas húmedas o de plieges, es probable que padezca Condilomas Planos, otro tipo de sífiles secundaria. Aparece a los 3-6 meses de la infección.
+    \item Si padece caida del pelo por zonas, o en placas, puede padecer Alopecia Sifílica.
+  \end{itemize}
+  \item En las verrugas genitales, Si ha tenido una relación de riesgo, es probable que tenga una.
+  \item En el caso de las ectoparasitosis:
+  \begin{itemize}
+    \item Si le pica la zona, y ha tenido una relación de riesgo, es posible que tenga liendres.
+    \item Si ha tenido una relación de riesgo, pero no le pica, lo más probable es que tenga prurito.
+  \end{itemize}
+  \item Las reglas para las enfermedades relacionadas con las inflamaciones son:
+  \begin{itemize}
+    \item Si presenta síntomas con fluidos amarillentos, posiblemente tenga uretritis.
+    \item Si presenta tenesmo y/o sangrado rectal, es probable que tenga proctitis.
+    \item Cuando el usuario tiene escozor y ardor tras el coito, hay una alta probabilidad de que tenga balanitis.
+  \end{itemize}
+\end{itemize}

@@ -3,4 +3,49 @@
 \chapter{Procedimiento seguido}
 
 \section{Sesiones con el experto}\index{Prodecimiento!Sesiones}
+
+Para el desarrollo de este sistema se han necesitado de 18 sesiones con el experto, de unos 30-40 minutos. Repartidas como sigue:
+
+\begin{itemize}
+  \item 7 sesiones para obtener el conocimiento.
+  \item 6 para diseñar y representar la información, y la relación de síntomas con enfermedades.
+  \item 4 sesiones se dedicaron a mostrar el prototipo del sistema experto al cliente, para corregir y retocar lo necesario.
+  \item Las 2 sesiones restantes se dedicaron a validad y verificar.
+\end{itemize}
+
 \section{Procedimiento de validación y verificación}\index{Prodecimiento!validación}\index{Prodecimiento!verificación}
+
+\subsection{Verificación}
+\label{sub:Verificación}
+
+Para la verificación de este sistema experto, ha sido necesario un proceso mediante el cual se han contemplado las tareas de \textbf{verificación del cumplimiento de especificaciones}, \textbf{verificiación de mecanismos de inferencia}, y \textbf{verificación de la base de conocimientos}.
+
+Para verificar el cumplimento de las especificaciones, el sistema ha sido probado para todos los posibles casos tanto por la desarrolladora como por el experto, y un pequeño grupo de 5 usuarios independientes.\\ \\Para ésto, se han contemplado rasgos como que el conocimiento se haya representado adecuadamente,  que la forma de razonar del sistema haya sido la adecuada, que el sistema haya sido diseñado de forma modular, que la interfaz de usuario cumpla las especificaciones, que se cumplan los requitisitos de rendimiento.
+\\
+La verificación de los mecanismos de inferencia, ha sido realizada por la desarrolladora de la herramienta (el ingeniero del conicimiento), tratando de verificar el funcionamiento correcto del sistema sometiéndolo a distintas pruebas.
+\\
+Por último, la verificación de la base de conocimientos ha sido realizada únicamente por el ingeniero del conocimiento, buscando anomalías que no constituyan errores (y errores que no constituyan anomalías). Para ello, se han evaludado aspectos como la consistencia y la completitud. Se ha comprobado que en el sistema no hay reglas con incertidumbre, que no hay redundancia y que apenas se usen sentencias \textbf{IF}, así como que no haya reglas sin salida o reglas inalcanzables.\\ \\Con este proceso de verificación no buscamos que las respuestas del sistema sean correctas(validación), sino comprobar que el diseño y la implementación del sistema son correctos. \\
+\subsection{Validación}
+\label{sub:Validación}
+
+Validar el sistema supone analizar si los resultados son correctos y si se cumplen las necesidades y los requisitos del usuario.
+
+El personal involucrado en la validación ha sido el ingeniero de conocimiento, ya que es quién mejor conoce el sistema, el experto y un grupo de evaluadores independientes.
+
+La estructura del razonamiento ha sido correctamente validada a lo largo de todo el desarrollo, comprobando que en cada momento el sistema alcanzaba una respuesta coherente con los datos introducidos por el usuario. Así, el sistema razonaba en base al problema presentado por el usuario, y lo aconsejaba.
+
+% Datos usados en la validación
+Ya que no se disponían de datos suficientes, se ha intentado mantener la representatividad basándonos en un documento suministrado, en el cual se indicaban las probabilidades de padecer una enfermedad.
+
+% Criterios de validación
+El criterio de validación seguido a sido un sistema de validación contra el experto. El sistema se ha construido con el conocimiento de un solo experto, luego, es ese mismo experto el que evalua el sistema. La desventaja de este método es algo subjetivo.
+
+
+% Momento  en el que realizar la validación
+Aunque ésta decisión suele ser algo controvertida, en éste caso se ha realizado la validación a lo largo de todo el proceso de desarrollo. Cada vez que se añadían nuevas reglas, o conocimiento, se ejecutaba para comprobar que las salidas del sistema eran las esperadas. Una vez finalizado, también se realizó una validación completa.
+
+% Métodos de validación
+El método de validación usado ha sido \textbf{análisis de sensibilidad}, en el cual se introducen al sistema casos muy similares entre sí, con diferencias muy pequeñas entre sí, y el sistema dará respuestas distintas.
+
+% Errores en la validación
+No se ha encontrado ningún error de tipo 2 en el sistema, ya que se ha comprobado que toda salida proporcionada es coherente con los datos introducidos por el usario.

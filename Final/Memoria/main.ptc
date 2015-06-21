@@ -1,61 +1,31 @@
-\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
-\defcounter {refsection}{0}\relax 
 \select@language {spanish}
 \ttl@starttoc {default@1}
-\defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {1}Esquema de razonamiento}{5}
 \ttl@stoptoc {default@1}
 \ttl@starttoc {default@2}
-\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1.1}Esquema de razonamiento}{5}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {1.2}Reglas indicadas en mi función como experto}{5}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.2.1}Numbered List}{5}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.2.2}Bullet Points}{5}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.2.3}Descriptions and Definitions}{5}
-\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.2}Reglas indicadas en mi funci\IeC {\'o}n como experto}{5}
 \contentsline {chapter}{\numberline {2}Procedimiento seguido}{7}
 \ttl@stoptoc {default@2}
 \ttl@starttoc {default@3}
-\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2.1}Sesiones con el experto}{7}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.2}Procedimiento de validación y verificación}{7}
-\defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {3}Descripción del sistema desarrollado}{9}
+\contentsline {section}{\numberline {2.2}Procedimiento de validaci\IeC {\'o}n y verificaci\IeC {\'o}n}{7}
+\contentsline {subsection}{\numberline {2.2.1}Verificaci\IeC {\'o}n}{7}
+\contentsline {subsection}{\numberline {2.2.2}Validaci\IeC {\'o}n}{8}
+\contentsline {chapter}{\numberline {3}Descripci\IeC {\'o}n del sistema desarrollado}{9}
 \ttl@stoptoc {default@3}
 \ttl@starttoc {default@4}
-\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3.1}Variables de entrada}{9}
-\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3.2}Variables de salida}{9}
-\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3.3}Conocimiento global}{9}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.4}Módulos desarrollados}{9}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.5}Estructura del esquema de razonamiento}{9}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.6}Lista de hechos usada durante ejecución}{9}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.7}Reglas de cada módulo}{9}
-\defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Manual de uso}{11}
+\contentsline {section}{\numberline {3.4}M\IeC {\'o}dulos desarrollados}{10}
+\contentsline {section}{\numberline {3.5}Estructura del esquema de razonamiento}{11}
+\contentsline {section}{\numberline {3.6}Lista de hechos usada durante ejecuci\IeC {\'o}n}{11}
+\contentsline {section}{\numberline {3.7}Reglas de cada m\IeC {\'o}dulo}{11}
+\contentsline {chapter}{\numberline {4}Manual de uso}{13}
 \ttl@stoptoc {default@4}
 \ttl@starttoc {default@5}
 \ttl@stoptoc {default@5}
 \ttl@starttoc {default@6}
-\defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\leavevmode {\color {ocre}Bibliography}}{13}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{Books}{13}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{Articles}{13}
-\ttl@stoptoc {default@6}
-\ttl@starttoc {default@7}
-\defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\leavevmode {\color {ocre}Index}}{15}
 \contentsfinish 

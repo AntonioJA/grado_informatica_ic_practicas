@@ -2,10 +2,152 @@
 
 \chapter{Descripción del sistema desarrollado}
 
+
 \section{Variables de entrada}\index{Sistema!Variables entrada}
+
+Las variables de entrada serán todas las preguntas a las que vaya respondiendo el usuario, en éste caso se reponde mediante la selección de números.
+
+Las respuestas de tipo si/no, se representan  mediante un 0 para el no, y un 1 para el sí. Cuando se le presenta al usuario un menu, las opciones de éste están enumeradas, y se seleccionará el elemento introduciendo su número correspondiente.
+
 \section{Variables de salida}\index{Sistema!Variables salida}
+
+Como variables de salida de nuestro sistema, tenemos la información que se muestra al usuario, en función de las entradas que ha realizado.
+
 \section{Conocimiento global}\index{Sistema!Conocimiento global}
+
+% El conociemiento global se ha representado mediante las siguientes relaciones de enfermedades con síntomas.
+
+El conocimiento global se ha dividido en dos partes, el conocimiento cargado en el sistema inicialmente, y el asertado a medida que el usuario interactua con el sistema.
+
+\begin{newlispcode}
+  (deftemplate std "Template representing a STD"
+      (slot std-name)
+      (slot std-symtom)
+      (slot std-symtom-where)
+  )
+
+  ;; Facts
+  (deffacts Kwnoledge
+    (std
+      (std-name uretritis) (std-symtom inflamacion) )
+    (std
+      (std-name uretritis) (std-symtom coagulo) )
+    (std
+      (std-name uretritis) (std-symtom calculos) )
+    (std
+      (std-name uretritis) (std-symtom fluido) )
+    (std
+      (std-name uretritis) (std-symtom dolor-testiculos) )
+
+    (std
+      (std-name proctitis) (std-symtom inflamacion-recto) )
+    (std
+      (std-name proctitis) (std-symtom dolor-anorectal) )
+    (std
+      (std-name proctitis) (std-symtom sangrado) )
+    (std
+      (std-name proctitis) (std-symtom extrenimiento) )
+    (std
+      (std-name proctitis) (std-symtom pus) )
+
+    (std
+      (std-name balanitis) (std-symtom ardor) )
+    (std
+      (std-name balanitis) (std-symtom infeccion) )
+
+    (std
+      (std-name infec-faringeas) (std-symtom dolor-garganta) )
+    (std
+      (std-name infec-faringeas) (std-symtom inflamacion-ganglios-linf) )
+
+    (std
+      (std-name balanitis) (std-symtom candidas) )
+    (std
+      (std-name balanitis) (std-symtom prurito) )
+    (std
+      (std-name balanitis) (std-symtom ardor) )
+
+    (std
+      (std-name faringeas) (std-symtom dolor-garganta) )
+    (std
+      (std-name faringeas) (std-symtom inflamacion-ganglios-linf) )
+
+    (std
+      (std-name ulcera-genital) (std-symtom inflamacion-ganglios-ingles) )
+
+     (std
+      (std-name ulcera-genital) (std-symtom erupcion-pustula) )
+
+    (std
+      (std-name ectoparasitosis) (std-symtom macula-roja) )
+    (std
+      (std-name ectoparasitosis) (std-symtom liendres-ladillas) )
+
+    ;; Sífilis prematura
+    (std
+      (std-name sifilis) (std-symtom ulcera) )
+
+    ;;Sífilis secundaria
+    (std
+      (std-name sifilis) (std-symtom roseola-rosa-palida-tronco) )
+    (std
+      (std-name sifilis) (std-symtom rojo-oscuro-platas) )
+    (std
+      (std-name sifilis) (std-symtom rojo-oscuro-zona-humeda) )
+    (std
+      (std-name sifilis) (std-symtom alopecia) )
+  )
+\end{newlispcode}
+
 \section{Módulos desarrollados}\index{Sistema!Módulos}
+
+Se han definido cinco modulos:
+\begin{itemize}
+  \item El principal, donde se decide qué tipo de usuario está interactuando con el sistema. Su objetivo es dar a conocer al sistema ante qué tipo de usuario se enfrenta. No usa conocimiento.
+  \item Módulo inflamaciones, en el que se tratan todas las enfermedades relacionadas con sintomas inflamatorios. En él, se van haciendo preguntas para descartar o asertar qué posible enfermedad puede padecer el usuario. El objetivo es decidir qué tipo de enfermedad inflamatoria puede padecer el usuario.
+  \item Módulo para la faringitis, contempla los síntomas posibles para las faringitis. Su objetivo es deducir qué tipo de faringitis padece el usuario.
+  \item Úlceras, Contempla los síntomas de las distintas úlceras, y decidirá qué tipo de ellas padece el usuario, de ser así. El objetivo es decidir qué tipo de úlcera padece el usuario.
+  \item Un módulo de información, que se usará cuando se llegue a la conclusión de qué puede padecer el usuario, o se mostrará información para el usuario de tipo 3. En éste módulo, el objetivo es motrar la información necesaria en base a lo deducido en los módulos anteriores.
+\end{itemize}
+
 \section{Estructura del esquema de razonamiento}\index{Sistema!Esquema razonamiento}
+
+El modulo principal es el que se ejecuta al iniciar el sistema experto. Si el usuario usando el sistema es de tipo 1, el modulo de inflamaciónes intentará buscar una enfermedad que corresponda con sus síntomas, de no encontrarla, se pasará al módulo de faringitis, luego al de úlceras y finalmente al de información.\\
+Al usuario de tipo 2 se le harán una serie de preguntas para determinar el por qué de su preocupación, una vez obtenido ese conocimiento, se pasará por el módulo correspondiente en función de sus respuestas.\\
+Al usuario de tipo 3 se le pregunta por qué tipo de enfermedad quiere informarse, y se ejecuta directamente el módulo de información basándose en su respuesta.
+
 \section{Lista de hechos usada durante ejecución}\index{Sistema!Lista de hechos}
+
+Hay dos tipos de hechos que se asertan durante la ejecución del sistema, unos representan qué opción ha elegido el usuario al interactuar, por ejemplo, si se presenta un menú de 3 elementos, se asertará un hecho, por ejemplo \newlispinline/(nombre-hecho-para-menu ?respuesta-menu)/, donde \newlispinline/?respuest-menu/ será un número que represente la opción elegida.\\
+El otro tipo de hecho representa conocimiento deducido por el sistema, por ejemplo \newlispinline/(assert (infoUlceraMala) )/ significa que el sistema ha deducido que el usuario debería informarse sobre el tipo de úlcera asertado.
+
 \section{Reglas de cada módulo}\index{Sistema!Reglas}
+
+Para el módulo de faringitis:
+\begin{itemize}
+  \item Si ha practicado sexo oral, con una o varias personas y alguna de ellas ha dado positivo en alguna ETS, es probable que los síntomas de su faringitis vengan dados por una ETS. De lo contrario, lo más probable es que padezca una faringitis de repetición (Una faringitis normal).
+\end{itemize}
+
+Para el caso de las úlceras\index{reglas!úlceras} hay que contemplar varios aspectos.
+\begin{itemize}
+  \item Lás úlceras graves son más probables de transmitirse en paises tropicales. Por tanto, si el usuario no ha estado en contacto con una persona de esos paieses, o no los ha frecuentado, es poco probable que se haya contagiado.
+  \item Para contemplar la sífilis, en caso de que se haya estado en contacto con alguien de paises tropicales, o en paieses tropicales, las reglas son las siguientes:
+  \begin{itemize}
+    \item Si tiene una úlcera color rosa pálido, es probable que tenga Roseola Sifílica, un tipo de sífiles secundaria, de las más comunes y precoces.
+    \item Si tiene una úlcera color rojo oscuro, en el tronco o extremidades, planta o palma, lo más probable es que padezca Sifilides Papulosa, otro tipo de sífilis secundaria.
+    \item Si tiene una úlcera roja oscura, pero en el area genital, perineo, ingles, axilas, o zonas húmedas o de plieges, es probable que padezca Condilomas Planos, otro tipo de sífiles secundaria. Aparece a los 3-6 meses de la infección.
+    \item Si padece caida del pelo por zonas, o en placas, puede padecer Alopecia Sifílica.
+  \end{itemize}
+  \item En las verrugas genitales, Si ha tenido una relación de riesgo, es probable que tenga una.
+  \item En el caso de las ectoparasitosis:
+  \begin{itemize}
+    \item Si le pica la zona, y ha tenido una relación de riesgo, es posible que tenga liendres.
+    \item Si ha tenido una relación de riesgo, pero no le pica, lo más probable es que tenga prurito.
+  \end{itemize}
+  \item Las reglas para las enfermedades relacionadas con las inflamaciones son:
+  \begin{itemize}
+    \item Si presenta síntomas con fluidos amarillentos, posiblemente tenga uretritis.
+    \item Si presenta tenesmo y/o sangrado rectal, es probable que tenga proctitis.
+    \item Cuando el usuario tiene escozor y ardor tras el coito, hay una alta probabilidad de que tenga balanitis.
+  \end{itemize}
+\end{itemize}
